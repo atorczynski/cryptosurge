@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const Seperator = styled.hr`
   width: 90%;
-  margin-top: 0;
+  margin: 5px 0 5px 0;
 `;
 
 export const CoinListContainer = styled.div`
@@ -12,11 +12,19 @@ export const CoinListContainer = styled.div`
   width: 100%;
 `;
 
+export const CoinHeader = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const CoinContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   height: 180px;
   width: 125px;
   background-color: white;
@@ -25,7 +33,7 @@ export const CoinContainer = styled.div`
 `;
 
 export const CoinName = styled.h2`
-  margin-top: 3px;
+  margin: 0;
   font-size: 0.75rem;
   color: ${(props) => props.theme.action};
 `;
@@ -65,7 +73,7 @@ export const CoinDetailPriceContainer = styled.div`
   width: 100%;
   height: 70px;
   border-radius: 0 0 25px 25px;
-  background-color: grey;
+  background-color: gainsboro;
   justify-content: center;
   align-items: center;
 `;
