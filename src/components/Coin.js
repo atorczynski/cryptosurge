@@ -8,39 +8,40 @@ import {
   CoinDetailElement,
   CoinDetailCall,
   CoinDetailPriceContainer,
-  Seperator
+  Seperator,
+  CoinHeader
 } from './CoinComponents';
 
 export default function Coin({
-  coinName,
   coinLogo,
-  CoinDetailDescription,
-  CoinDetailChange,
-  change1h,
+  coinName,
+  change30d,
   change24h,
-  change7d
+  change7d,
+  currentPrice
 }) {
   return (
     <CoinContainer>
-      <CoinLogo src={coinLogo} />
-      <CoinName>{coinName}</CoinName>
+      <CoinHeader>
+        <CoinLogo src={coinLogo} />
+        <CoinName>{coinName}</CoinName>
+      </CoinHeader>
       <Seperator />
       <CoinDetailsContainer>
-        <CoinDetailElement>
-          <CoinDetailText>Change 1h</CoinDetailText>
-          <CoinDetailCall>{change1h}</CoinDetailCall>
-        </CoinDetailElement>
-        <CoinDetailElement>
-          <CoinDetailText>Change 24h</CoinDetailText>
-          <CoinDetailCall>{change24h}</CoinDetailCall>
-        </CoinDetailElement>
+        <CoinDetailText>Change 24h</CoinDetailText>
+        <CoinDetailCall>{change24h}</CoinDetailCall>
+        <CoinDetailElement></CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 7d</CoinDetailText>
           <CoinDetailCall>{change7d}</CoinDetailCall>
         </CoinDetailElement>
+        <CoinDetailElement>
+          <CoinDetailText>Change 30d</CoinDetailText>
+          <CoinDetailCall>{change30d}</CoinDetailCall>
+        </CoinDetailElement>
       </CoinDetailsContainer>
       <CoinDetailPriceContainer>
-        <CoinDetailCall>$9,122.22</CoinDetailCall>
+        <CoinDetailCall>${currentPrice}</CoinDetailCall>
       </CoinDetailPriceContainer>
     </CoinContainer>
   );
