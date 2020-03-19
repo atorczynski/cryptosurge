@@ -28,9 +28,10 @@ export default function Coin({
       </CoinHeader>
       <Seperator />
       <CoinDetailsContainer>
-        <CoinDetailText>Change 24h</CoinDetailText>
-        <CoinDetailCall>{change24h}</CoinDetailCall>
-        <CoinDetailElement></CoinDetailElement>
+        <CoinDetailElement>
+          <CoinDetailText>Change 24h</CoinDetailText>
+          <CoinDetailCall>{change24h}</CoinDetailCall>
+        </CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 7d</CoinDetailText>
           <CoinDetailCall>{change7d}</CoinDetailCall>
