@@ -1,8 +1,46 @@
 import styled from '@emotion/styled';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+export const CoinContainer = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 180px;
+  width: 150px;
+  background: white;
+  border-radius: 25px;
+  margin: 20px;
+  color: inherit;
+
+  text-decoration: none;
+
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: lightgray;
+    color: ${(props) => props.theme.action};
+  }
+
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+
+  @media (max-width: 379px) {
+    width: 150px;
+  }
+`;
 
 export const Seperator = styled.hr`
   width: 90%;
   margin: 5px 0 5px 0;
+`;
+export const CoinName = styled.h2`
+  margin: 0;
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.action};
 `;
 
 export const CoinHeader = styled.div`
@@ -12,27 +50,6 @@ export const CoinHeader = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const CoinContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 180px;
-  width: 150px;
-  background-color: white;
-  margin: 20px;
-  border-radius: 25px;
-
-  @media (max-width: 379px) {
-    width: 150px;
-  }
-`;
-
-export const CoinName = styled.h2`
-  margin: 0;
-  font-size: 0.75rem;
-  color: ${(props) => props.theme.action};
 `;
 
 export const CoinLogo = styled.img`
@@ -45,7 +62,7 @@ export const CoinDetailsContainer = styled.div`
   justify-content: space-evenly;
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: inherit;
 `;
 
 export const CoinDetailElement = styled.div`
@@ -62,6 +79,7 @@ export const CoinDetailCall = styled.p`
   margin: 0;
   font-size: 0.75rem;
   font-weight: bold;
+  color: ${(props) => props.trendColor};
 `;
 
 export const CoinDetailPriceContainer = styled.div`
@@ -70,7 +88,8 @@ export const CoinDetailPriceContainer = styled.div`
   width: 100%;
   height: 70px;
   border-radius: 0 0 25px 25px;
-  background-color: gainsboro;
+  background-color: lightgrey;
+
   justify-content: center;
   align-items: center;
 `;
