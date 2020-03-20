@@ -7,7 +7,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
 
   @media (max-width: 379px) {
     flex-direction: column;
@@ -39,6 +38,7 @@ export default function Main() {
     <Container>
       {coins.map((coin) => (
         <Coin
+          link={coin.id}
           key={coin.id}
           coinName={coin.id}
           coinLogo={coin.image.thumb}
