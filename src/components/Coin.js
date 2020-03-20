@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import {
   CoinContainer,
   CoinName,
@@ -10,7 +9,8 @@ import {
   CoinDetailCall,
   CoinDetailPriceContainer,
   Seperator,
-  CoinHeader
+  CoinHeader,
+  trendColor
 } from './CoinComponents';
 
 export default function Coin({
@@ -20,10 +20,11 @@ export default function Coin({
   change24h,
   change7d,
   currentPrice,
-  link
+  link,
+  trendColor
 }) {
   return (
-    <CoinContainer to={`/${link}`}>
+    <CoinContainer to={`/coins/${link}`}>
       <CoinHeader>
         <CoinLogo src={coinLogo} />
         <CoinName>{coinName}</CoinName>
@@ -43,7 +44,7 @@ export default function Coin({
           <CoinDetailCall>{change30d}</CoinDetailCall>
         </CoinDetailElement>
       </CoinDetailsContainer>
-      <CoinDetailPriceContainer>
+      <CoinDetailPriceContainer trendColor={trendColor}>
         <CoinDetailCall>${currentPrice}</CoinDetailCall>
       </CoinDetailPriceContainer>
     </CoinContainer>

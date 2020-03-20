@@ -10,6 +10,23 @@ export const CoinContainer = styled(Link)`
   background: white;
   border-radius: 25px;
   margin: 20px;
+  color: inherit;
+
+  text-decoration: none;
+
+  transition: all 0.5s ease;
+
+  &:hover {
+    background: lightgray;
+    color: ${(props) => props.theme.action};
+  }
+
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
 
   @media (max-width: 379px) {
     width: 150px;
@@ -45,7 +62,7 @@ export const CoinDetailsContainer = styled.div`
   justify-content: space-evenly;
   height: 100%;
   width: 100%;
-  background-color: white;
+  background-color: inherit;
 `;
 
 export const CoinDetailElement = styled.div`
@@ -70,7 +87,8 @@ export const CoinDetailPriceContainer = styled.div`
   width: 100%;
   height: 70px;
   border-radius: 0 0 25px 25px;
-  background-color: gainsboro;
+  background-color: lightgrey;
+  color: ${(props) => props.trendColor};
   justify-content: center;
   align-items: center;
 `;
