@@ -1,14 +1,31 @@
 import React, { useEffect } from 'react';
 import Coin from '../components/Coin';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (max-width: 379px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 export default function Main() {
   async function getData() {
     try {
+      setLoading(true);
       const response = await fetch(`https://api.coingecko.com/api/v3/coins/`);
       const data = await response.json();
       setCoins(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -17,8 +34,9 @@ export default function Main() {
   }, []);
 
   const [coins, setCoins] = React.useState([]);
+  const [isLoading, setLoading] = React.useState();
   return (
-    <div>
+    <Container>
       {coins.map((coin) => (
         <Coin
           key={coin.id}
@@ -26,10 +44,10 @@ export default function Main() {
           coinLogo={coin.image.thumb}
           change24h={coin.market_data.price_change_percentage_24h}
           change7d={coin.market_data.price_change_percentage_7d}
-          change30d={coin.market_data.price_change_percentage_3d}
+          change30d={coin.market_data.price_change_percentage_30d}
           currentPrice={coin.market_data.current_price.usd}
         />
       ))}
-    </div>
+    </Container>
   );
 }

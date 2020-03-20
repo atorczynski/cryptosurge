@@ -13,7 +13,7 @@ function App() {
       <NavBar />
       <Router>
         <Switch>
-          <Route exact path='/ss33'>
+          <Route exact path='/'>
             <Main />
           </Route>
         </Switch>
