@@ -21,7 +21,9 @@ export default function Coin({
   change7d,
   currentPrice,
   link,
-  trendColor
+  trendColor24h,
+  trendColor7d,
+  trendColor30d
 }) {
   return (
     <CoinContainer to={`/coins/${link}`}>
@@ -33,18 +35,22 @@ export default function Coin({
       <CoinDetailsContainer>
         <CoinDetailElement>
           <CoinDetailText>Change 24h</CoinDetailText>
-          <CoinDetailCall>{change24h}</CoinDetailCall>
+          <CoinDetailCall trendColor={trendColor24h}>
+            {change24h}
+          </CoinDetailCall>
         </CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 7d</CoinDetailText>
-          <CoinDetailCall>{change7d}</CoinDetailCall>
+          <CoinDetailCall trendColor={trendColor7d}>{change7d}</CoinDetailCall>
         </CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 30d</CoinDetailText>
-          <CoinDetailCall>{change30d}</CoinDetailCall>
+          <CoinDetailCall trendColor={trendColor30d}>
+            {change30d}
+          </CoinDetailCall>
         </CoinDetailElement>
       </CoinDetailsContainer>
-      <CoinDetailPriceContainer trendColor={trendColor}>
+      <CoinDetailPriceContainer>
         <CoinDetailCall>${currentPrice}</CoinDetailCall>
       </CoinDetailPriceContainer>
     </CoinContainer>

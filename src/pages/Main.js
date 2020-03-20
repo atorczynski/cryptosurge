@@ -15,6 +15,19 @@ const Container = styled.div`
 `;
 
 export default function Main() {
+  const [coins, setCoins] = React.useState([]);
+  const [isLoading, setLoading] = React.useState();
+
+  const createTrendColor = (currentChange) => {
+    if (currentChange.toString().charAt(0) === '-') {
+      console.log('red ' + currentChange);
+      return 'red';
+    } else {
+      console.log('green ' + currentChange.toString().charAt(0));
+      return 'green';
+    }
+  };
+
   async function getData() {
     try {
       setLoading(true);
@@ -32,12 +45,19 @@ export default function Main() {
     getData();
   }, []);
 
-  const [coins, setCoins] = React.useState([]);
-  const [isLoading, setLoading] = React.useState();
   return (
     <Container>
       {coins.map((coin) => (
         <Coin
+          trendColor24h={createTrendColor(
+            coin.market_data.price_change_percentage_24h
+          )}
+          trendColor7d={createTrendColor(
+            coin.market_data.price_change_percentage_7d
+          )}
+          trendColor30d={createTrendColor(
+            coin.market_data.price_change_percentage_30d
+          )}
           link={coin.id}
           key={coin.id}
           coinName={coin.id}

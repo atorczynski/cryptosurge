@@ -79,6 +79,7 @@ export const CoinDetailCall = styled.p`
   margin: 0;
   font-size: 0.75rem;
   font-weight: bold;
+  color: ${(props) => props.trendColor};
 `;
 
 export const CoinDetailPriceContainer = styled.div`
@@ -88,7 +89,7 @@ export const CoinDetailPriceContainer = styled.div`
   height: 70px;
   border-radius: 0 0 25px 25px;
   background-color: lightgrey;
-  color: ${(props) => props.trendColor};
+
   justify-content: center;
   align-items: center;
 `;
