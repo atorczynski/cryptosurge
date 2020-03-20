@@ -5,13 +5,6 @@ export const Seperator = styled.hr`
   margin: 5px 0 5px 0;
 `;
 
-export const CoinListContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-`;
-
 export const CoinHeader = styled.div`
   width: 100%;
   height: 100px;
@@ -26,10 +19,14 @@ export const CoinContainer = styled.div`
   flex-direction: column;
   align-items: center;
   height: 180px;
-  width: 125px;
+  width: 150px;
   background-color: white;
   margin: 20px;
   border-radius: 25px;
+
+  @media (max-width: 379px) {
+    width: 150px;
+  }
 `;
 
 export const CoinName = styled.h2`
