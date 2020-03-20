@@ -9,8 +9,7 @@ import {
   CoinDetailCall,
   CoinDetailPriceContainer,
   Seperator,
-  CoinHeader,
-  trendColor
+  CoinHeader
 } from './CoinComponents';
 
 export default function Coin({
