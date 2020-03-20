@@ -42,7 +42,13 @@ export default function Main() {
   }
 
   useEffect(() => {
-    getData();
+    const interval = setInterval(() => {
+      getData();
+
+      return () => {
+        clearInterval(interval);
+      };
+    }, 2000);
   }, []);
 
   return (
