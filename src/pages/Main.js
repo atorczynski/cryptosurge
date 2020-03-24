@@ -20,10 +20,8 @@ export default function Main() {
 
   const createTrendColor = (currentChange) => {
     if (currentChange.toString().charAt(0) === '-') {
-      console.log('red ' + currentChange);
       return 'red';
     } else {
-      console.log('green ' + currentChange.toString().charAt(0));
       return 'green';
     }
   };
@@ -34,6 +32,7 @@ export default function Main() {
       const response = await fetch(`https://api.coingecko.com/api/v3/coins/`);
       const data = await response.json();
       setCoins(data);
+      console.log(coins);
     } catch (error) {
       console.error(error);
     } finally {
