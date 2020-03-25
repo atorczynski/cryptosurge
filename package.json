@@ -41,7 +41,7 @@
     "@storybook/addon-links": "^5.3.17",
     "@storybook/addon-viewport": "^5.3.14",
     "@storybook/addons": "^5.3.14",
-    "@storybook/preset-create-react-app": "^2.1.0",
+    "@storybook/preset-create-react-app": "^2.1.1",
     "@storybook/react": "^5.3.17",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.18.3"
