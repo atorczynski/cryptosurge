@@ -32,7 +32,6 @@ export default function Main() {
       const response = await fetch(`https://api.coingecko.com/api/v3/coins/`);
       const data = await response.json();
       setCoins(data);
-      console.log(coins);
     } catch (error) {
       console.error(error);
     } finally {
@@ -47,7 +46,7 @@ export default function Main() {
       return () => {
         clearInterval(interval);
       };
-    }, 2000);
+    }, 500);
   }, []);
 
   return (
