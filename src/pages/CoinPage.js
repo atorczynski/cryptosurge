@@ -29,16 +29,24 @@ export default function CoinPage({ match }) {
     getData();
   }, []);
 
-  const checkAvailable = (URL) => {
-    const data = URL;
-    if (!Array.isArray(data) || !data.length || data[0] === '') {
+  const checkAvailable = (target) => {
+    const data = target;
+    if (data === '' || data === null) {
       return 'none';
     } else {
       return 'flex';
     }
   };
 
-  console.log(coin.links.repos_url.github[0]);
+  const checkGitHub = (target) => {
+    if (!target.length) {
+      return 'none';
+    } else {
+      return 'flex';
+    }
+  };
+
+  console.log(coin.links.repos_url.github);
 
   return (
     <CoinDetails
@@ -50,10 +58,11 @@ export default function CoinPage({ match }) {
       coinBlockChainSite={coin.links.blockchain_site[0]}
       coinRedditSite={coin.links.subreddit_url}
       coinGithubSite={coin.links.repos_url.github[0]}
-      displayAvailableWebsite={checkAvailable(coin.links.homepage)}
-      displayAvailableForum={checkAvailable(coin.links.official_forum_url)}
-      displayAvailableBlockchain={checkAvailable(coin.links.blockchain_site)}
-      displayAvailableForum={checkAvailable(coin.links.official_forum_url)}
+      displayAvailableWebsite={checkAvailable(coin.links.homepage[0])}
+      displayAvailableForum={checkAvailable(coin.links.official_forum_url[0])}
+      displayAvailableBlockchain={checkAvailable(coin.links.blockchain_site[0])}
+      displayAvailableGithub={checkGitHub(coin.links.repos_url.github)}
+      displayAvailableReddit={checkAvailable(coin.links.subreddit_url)}
     />
   );
 }
