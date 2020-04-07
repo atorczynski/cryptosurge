@@ -18,6 +18,11 @@ export default function CoinDetails({
   coinBlockChainSite,
   coinRedditSite,
   coinGithubSite,
+  displayAvailableWebsite,
+  displayAvailableForum,
+  displayAvailableBlockchain,
+  displayAvailableReddit,
+  displayAvailableGithub,
 }) {
   return (
     <CoinHeaderContainer>
@@ -26,15 +31,34 @@ export default function CoinDetails({
         <CoinNameID>({coinNameID})</CoinNameID>
         <CoinImage src={coinImage} />
         <CoinInformationContainer>
-          <CoinInformationLink href={coinSite}>Website</CoinInformationLink>
-          <CoinInformationLink href={coinForumSite}>Forum</CoinInformationLink>
-          <CoinInformationLink href={coinBlockChainSite}>
+          <CoinInformationLink
+            display={displayAvailableWebsite}
+            href={coinSite}
+          >
+            Website
+          </CoinInformationLink>
+          <CoinInformationLink
+            display={displayAvailableForum}
+            href={coinForumSite}
+          >
+            Forum
+          </CoinInformationLink>
+          <CoinInformationLink
+            display={displayAvailableBlockchain}
+            href={coinBlockChainSite}
+          >
             Blockchain Information
           </CoinInformationLink>
-          <CoinInformationLink href={coinRedditSite}>
+          <CoinInformationLink
+            display={displayAvailableReddit}
+            href={coinRedditSite}
+          >
             Reddit
           </CoinInformationLink>
-          <CoinInformationLink href={coinGithubSite}>
+          <CoinInformationLink
+            display={displayAvailableGithub}
+            href={coinGithubSite}
+          >
             GitHub Repository
           </CoinInformationLink>
         </CoinInformationContainer>

@@ -28,6 +28,7 @@ export const CoinInformationContainer = styled.div`
 `;
 
 export const CoinInformationLink = styled.a`
+  display: ${(props) => props.display};
   text-decoration: none;
   transition: all 0.5s ease;
   color: white;
