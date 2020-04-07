@@ -20,10 +20,8 @@ export default function Main() {
 
   const createTrendColor = (currentChange) => {
     if (currentChange.toString().charAt(0) === '-') {
-      console.log('red ' + currentChange);
       return 'red';
     } else {
-      console.log('green ' + currentChange.toString().charAt(0));
       return 'green';
     }
   };
@@ -48,7 +46,7 @@ export default function Main() {
       return () => {
         clearInterval(interval);
       };
-    }, 2000);
+    }, 500);
   }, []);
 
   return (
