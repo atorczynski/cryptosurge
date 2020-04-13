@@ -14,7 +14,7 @@ import {
 } from './CoinDetailsHeadComponents';
 import CoinInformationTable from './CoinDetails/CoinInformationTable';
 
-export default function CoinDetails({
+export default function CoinDetailsHead({
   coinName,
   coinImage,
   coinNameID,
@@ -30,6 +30,7 @@ export default function CoinDetails({
   displayAvailableGithub,
   coingecko_rank,
   market_cap_rank,
+  asset_platform_id,
 }) {
   return (
     <CoinHeaderContainer>
@@ -78,6 +79,8 @@ export default function CoinDetails({
           <CoinInformationTable
             coingecko_rank={coingecko_rank}
             market_cap_rank={market_cap_rank}
+            asset_platform_id={asset_platform_id}
+            
           />
         </CoinDetailsBaseInformation>
       </CoinDetailsInfoContainer>
