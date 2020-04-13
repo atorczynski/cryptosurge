@@ -1,5 +1,6 @@
 import React from 'react';
-import CoinDetails from '../components/CoinDetailsHead';
+import styled from '@emotion/styled';
+import CoinDetailsHead from '../components/CoinDetailsHead';
 
 export default function CoinPage({ match }) {
   const [coin, setCoin] = React.useState({
@@ -49,7 +50,7 @@ export default function CoinPage({ match }) {
   console.log(coin.links.repos_url.github);
 
   return (
-    <CoinDetails
+    <CoinDetailsHead
       coinName={coin.name}
       coinImage={coin.image.small}
       coinNameID={coin.symbol}
@@ -65,6 +66,7 @@ export default function CoinPage({ match }) {
       displayAvailableReddit={checkAvailable(coin.links.subreddit_url)}
       coingecko_rank={coin.coingecko_rank}
       market_cap_rank={coin.market_cap_rank}
+      asset_platform_id={coin.asset_platform_id}
     />
   );
 }
