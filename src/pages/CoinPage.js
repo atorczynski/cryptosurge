@@ -1,5 +1,5 @@
 import React from 'react';
-import CoinDetails from '../components/CoinDetails';
+import CoinDetails from '../components/CoinDetailsHead';
 
 export default function CoinPage({ match }) {
   const [coin, setCoin] = React.useState({
@@ -63,6 +63,8 @@ export default function CoinPage({ match }) {
       displayAvailableBlockchain={checkAvailable(coin.links.blockchain_site[0])}
       displayAvailableGithub={checkGitHub(coin.links.repos_url.github)}
       displayAvailableReddit={checkAvailable(coin.links.subreddit_url)}
+      coingecko_rank={coin.coingecko_rank}
+      market_cap_rank={coin.market_cap_rank}
     />
   );
 }

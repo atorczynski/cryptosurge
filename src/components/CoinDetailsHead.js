@@ -7,7 +7,12 @@ import {
   CoinNameID,
   CoinInformationContainer,
   CoinInformationLink,
-} from './CoinDetailsComponents';
+  CoinDetailsInfoContainer,
+  CoinDetailsBaseInformation,
+  CoinDetailsHeading,
+  CoinDetailsHeadingContainer,
+} from './CoinDetailsHeadComponents';
+import CoinInformationTable from './CoinDetails/CoinInformationTable';
 
 export default function CoinDetails({
   coinName,
@@ -23,6 +28,8 @@ export default function CoinDetails({
   displayAvailableBlockchain,
   displayAvailableReddit,
   displayAvailableGithub,
+  coingecko_rank,
+  market_cap_rank,
 }) {
   return (
     <CoinHeaderContainer>
@@ -63,6 +70,17 @@ export default function CoinDetails({
           </CoinInformationLink>
         </CoinInformationContainer>
       </CoinNameContainer>
+      <CoinDetailsInfoContainer>
+        <CoinDetailsBaseInformation>
+          <CoinDetailsHeadingContainer>
+            <CoinDetailsHeading>Base Information</CoinDetailsHeading>
+          </CoinDetailsHeadingContainer>
+          <CoinInformationTable
+            coingecko_rank={coingecko_rank}
+            market_cap_rank={market_cap_rank}
+          />
+        </CoinDetailsBaseInformation>
+      </CoinDetailsInfoContainer>
     </CoinHeaderContainer>
   );
 }
