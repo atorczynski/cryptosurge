@@ -1,6 +1,6 @@
 export const primary = {
-  background: '#e3e2df',
-  text: '#F1F1F2',
-  caption: '#C2B4C7',
-  action: '#B84D3D',
+  background: '#485461',
+  text: '#111111',
+  caption: '#AAAAAA',
+  action: '#85144b',
 };

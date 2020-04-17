@@ -14,8 +14,14 @@ function GlobalStyles() {
         }
         body {
           font-size: 14px;
+          color: ${theme.text};
           margin: 0px;
-          background: ${theme.background};
+          background-color: ${theme.background};
+          background-image: linear-gradient(
+            315deg,
+            ${theme.background} 0%,
+            #28313b 74%
+          );
           font-family: 'Roboto', sans-serif;
         }
       `}

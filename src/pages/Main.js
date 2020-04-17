@@ -20,9 +20,9 @@ export default function Main() {
 
   const createTrendColor = (currentChange) => {
     if (currentChange.toString().charAt(0) === '-') {
-      return 'red';
+      return '#FF4136';
     } else {
-      return 'green';
+      return '#2ECC40';
     }
   };
 
