@@ -1,5 +1,5 @@
 export const primary = {
-  background: '#293749',
+  background: '#e3e2df',
   text: '#F1F1F2',
   caption: '#C2B4C7',
   action: '#B84D3D',

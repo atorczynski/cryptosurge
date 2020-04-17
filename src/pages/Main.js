@@ -39,6 +39,10 @@ export default function Main() {
     }
   }
 
+  const cutPercentageDisplay = (percentageValue) => {
+    return percentageValue.toFixed(2);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       getData();
@@ -46,7 +50,7 @@ export default function Main() {
       return () => {
         clearInterval(interval);
       };
-    }, 500);
+    }, 1000);
   }, []);
 
   return (
@@ -66,9 +70,15 @@ export default function Main() {
           key={coin.id}
           coinName={coin.id}
           coinLogo={coin.image.thumb}
-          change24h={coin.market_data.price_change_percentage_24h}
-          change7d={coin.market_data.price_change_percentage_7d}
-          change30d={coin.market_data.price_change_percentage_30d}
+          change24h={cutPercentageDisplay(
+            coin.market_data.price_change_percentage_24h
+          )}
+          change7d={cutPercentageDisplay(
+            coin.market_data.price_change_percentage_7d
+          )}
+          change30d={cutPercentageDisplay(
+            coin.market_data.price_change_percentage_30d
+          )}
           currentPrice={coin.market_data.current_price.usd}
         />
       ))}

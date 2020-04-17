@@ -9,7 +9,7 @@ import {
   CoinDetailCall,
   CoinDetailPriceContainer,
   Seperator,
-  CoinHeader
+  CoinHeader,
 } from './CoinComponents';
 
 export default function Coin({
@@ -22,7 +22,7 @@ export default function Coin({
   link,
   trendColor24h,
   trendColor7d,
-  trendColor30d
+  trendColor30d,
 }) {
   return (
     <CoinContainer to={`/coins/${link}`}>
@@ -35,17 +35,19 @@ export default function Coin({
         <CoinDetailElement>
           <CoinDetailText>Change 24h</CoinDetailText>
           <CoinDetailCall trendColor={trendColor24h}>
-            {change24h}
+            {change24h + ' %'}
           </CoinDetailCall>
         </CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 7d</CoinDetailText>
-          <CoinDetailCall trendColor={trendColor7d}>{change7d}</CoinDetailCall>
+          <CoinDetailCall trendColor={trendColor7d}>
+            {change7d + ' %'}
+          </CoinDetailCall>
         </CoinDetailElement>
         <CoinDetailElement>
           <CoinDetailText>Change 30d</CoinDetailText>
           <CoinDetailCall trendColor={trendColor30d}>
-            {change30d}
+            {change30d + ' %'}
           </CoinDetailCall>
         </CoinDetailElement>
       </CoinDetailsContainer>
