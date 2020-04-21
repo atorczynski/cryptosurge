@@ -3,3 +3,6 @@ export const getData = async () => {
   const data = await req.json();
   return await data;
 };
+export const cutFloatValue = (percentageValue) => {
+  return Number.parseFloat(percentageValue).toFixed(2);
+};
