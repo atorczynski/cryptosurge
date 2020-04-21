@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import Coin from '../components/Coin';
 import styled from '@emotion/styled';
 
+import { cutFloatValue } from '../lib/helpers';
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -39,10 +41,6 @@ export default function Main() {
     }
   }
 
-  const cutPercentageDisplay = (percentageValue) => {
-    return percentageValue.toFixed(2);
-  };
-
   useEffect(() => {
     const interval = setInterval(() => {
       getData();
@@ -70,13 +68,11 @@ export default function Main() {
           key={coin.id}
           coinName={coin.id}
           coinLogo={coin.image.thumb}
-          change24h={cutPercentageDisplay(
+          change24h={cutFloatValue(
             coin.market_data.price_change_percentage_24h
           )}
-          change7d={cutPercentageDisplay(
-            coin.market_data.price_change_percentage_7d
-          )}
-          change30d={cutPercentageDisplay(
+          change7d={cutFloatValue(coin.market_data.price_change_percentage_7d)}
+          change30d={cutFloatValue(
             coin.market_data.price_change_percentage_30d
           )}
           currentPrice={coin.market_data.current_price.usd}
