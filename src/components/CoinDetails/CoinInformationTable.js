@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import {
   CoinDetailsTable,
   CoinDetailsTableRow,
@@ -6,53 +7,60 @@ import {
   CoinDetailsHeading,
 } from './CoinInformationTableComponents';
 
+const InformationContainer = styled.div``;
+
 export default function CoinInformationTable({
-  market_cap_rank,
-  coingecko_rank,
-  asset_platform_id,
-  hashingAlgorithm,
-  block_time_in_minutes,
-  public_interest_score,
-  liquidity_score,
+  rowEntry1,
+  rowEntry2,
+  rowEntry3,
+  rowEntry4,
+  rowEntry5,
+  rowEntry6,
+  rowEntry7,
+  rowName1,
+  rowName2,
+  rowName3,
+  rowName4,
+  rowName5,
+  rowName6,
+  rowName7,
   tableHeading,
 }) {
   return (
-    <div>
+    <InformationContainer>
       <CoinDetailsHeading>{tableHeading}</CoinDetailsHeading>
       <CoinDetailsTable>
         <tbody>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Coinmarket Rank</CoinDetailsElement>
-            <CoinDetailsElement>{market_cap_rank}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName1}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry1}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Coingecko Rank</CoinDetailsElement>
-            <CoinDetailsElement>{coingecko_rank}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName2}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry2}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Asset Platform</CoinDetailsElement>
-            <CoinDetailsElement>{asset_platform_id}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName3}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry3}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Algorithm</CoinDetailsElement>
-            <CoinDetailsElement>{hashingAlgorithm}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName4}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry4}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Blocktime</CoinDetailsElement>
-            <CoinDetailsElement>
-              {block_time_in_minutes} Minutes
-            </CoinDetailsElement>
+            <CoinDetailsElement>{rowName5}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry5}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Public Interest Score</CoinDetailsElement>
-            <CoinDetailsElement>{public_interest_score}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName6}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry6}</CoinDetailsElement>
           </CoinDetailsTableRow>
           <CoinDetailsTableRow>
-            <CoinDetailsElement>Liquidity Score</CoinDetailsElement>
-            <CoinDetailsElement>{liquidity_score}</CoinDetailsElement>
+            <CoinDetailsElement>{rowName7}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry7}</CoinDetailsElement>
           </CoinDetailsTableRow>
         </tbody>
       </CoinDetailsTable>
-    </div>
+    </InformationContainer>
   );
 }
