@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { RadialChart } from 'react-vis';
+import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
+import ApexCharts from 'apexcharts';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
 
@@ -32,8 +33,9 @@ const PieChartCointainer = styled.div`
 
 export default function CoinPage({ match }) {
   const [coin, setCoin] = React.useState({
+    sentiment_votes_up_percentage: {},
     image: {},
-    market_data: {},
+    market_data: { ath: {}, atl: {} },
     categories: {},
     links: {
       homepage: [],
@@ -90,7 +92,13 @@ export default function CoinPage({ match }) {
     stiffness: 20,
   };
 
-  console.log(coin.circulating_supply);
+  const DOMAIN = [
+    { name: 'asdasd', domain: [0, 10] },
+    { name: 'explosions', domain: [0, 10] },
+    { name: 'wow', domain: [0, 10] },
+  ];
+
+  console.log(cutFloatValue(coin.community_score));
 
   return (
     <InformationBar>
@@ -119,32 +127,59 @@ export default function CoinPage({ match }) {
         rowEntry2={coin.market_cap_rank}
         rowName3={'Type'}
         rowEntry3={checkIfNull(coin.categories[0])}
-        rowName4={'Genesis Date'}
-        rowEntry4={checkIfNull(coin.genesis_date)}
-        rowName5={'Block Time'}
-        rowEntry5={coin.block_time_in_minutes}
+        rowName4={'All Time High'}
+        rowEntry4={checkIfNull('$' + coin.market_data.ath.usd)}
+        rowName5={'All Time Low'}
+        rowEntry5={'$' + coin.market_data.atl.usd}
         rowName6={'Circulating Supply'}
-        rowEntry6={coin.circulating_supply}
+        rowEntry6={coin.market_data.circulating_supply}
         rowName7={'Total Supply'}
         rowEntry7={coin.market_data.total_supply}
       />
-      <CoinInformationTable
-        tableHeading={'Base Information'}
-        rowName1={'CoinGecko Rank'}
-        rowEntry1={coin.coingecko_rank}
-        rowName2={'CoinMarket Rank'}
-        rowEntry2={coin.market_cap_rank}
-        rowName3={'Type'}
-        rowEntry3={checkIfNull(coin.categories[0])}
-        rowName4={'Genesis Date'}
-        rowEntry4={checkIfNull(coin.genesis_date)}
-        rowName5={'CoinGecko Rank'}
-        rowEntry5={coin.block_time_in_minutes}
-        rowName6={'CoinGecko Rank'}
-        rowEntry6={cutFloatValue(coin.public_interest_score)}
-        rowName7={'CoinGecko Rank'}
-        rowEntry7={cutFloatValue(coin.liquidity_score)}
-      />
+      <PieChartCointainer>
+        <PieChartHeading>Radial View</PieChartHeading>
+        <RadarChart
+          animation
+          data={[
+            {
+              explosions: 10,
+              wow: 10,
+              asdasd: 10,
+            },
+          ]}
+          domains={DOMAIN}
+          style={{
+            polygons: {
+              fillOpacity: 0.4,
+              strokeWidth: 2,
+              strokeOpacity: 1,
+            },
+            axes: {
+              text: { opacity: 0.0 },
+            },
+            labels: {
+              textAnchor: 'middle',
+              fontSize: 11,
+              fontWeight: 400,
+            },
+          }}
+          margin={{
+            left: 40,
+            top: 40,
+            bottom: 20,
+            right: 20,
+          }}
+          width={300}
+          height={300}
+          animation={AnimationData}
+        >
+          <CircularGridLines
+            tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
+            style={{ opacity: 0.1 }}
+            style={{ fill: 'none', stroke: 'black' }}
+          />
+        </RadarChart>
+      </PieChartCointainer>
       <PieChartCointainer>
         <PieChartHeading>Community Prediction</PieChartHeading>
         <RadialChart
@@ -158,7 +193,7 @@ export default function CoinPage({ match }) {
               label: 'Sell',
             },
           ]}
-          width={250}
+          width={300}
           height={300}
           animation={AnimationData}
           labelsRadiusMultiplier={0.6}
