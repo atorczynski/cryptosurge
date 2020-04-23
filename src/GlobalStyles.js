@@ -14,8 +14,9 @@ function GlobalStyles() {
         }
         body {
           font-size: 14px;
+          color: ${theme.text};
           margin: 0px;
-          background: ${theme.background};
+          background-color: ${theme.background};
           font-family: 'Roboto', sans-serif;
         }
       `}

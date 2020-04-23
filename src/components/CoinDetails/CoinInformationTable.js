@@ -1,45 +1,66 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import {
   CoinDetailsTable,
   CoinDetailsTableRow,
-  CoinDetailsElement2,
+  CoinDetailsElement,
+  CoinDetailsHeading,
 } from './CoinInformationTableComponents';
 
+const InformationContainer = styled.div``;
+
 export default function CoinInformationTable({
-  market_cap_rank,
-  coingecko_rank,
-  asset_platform_id,
+  rowEntry1,
+  rowEntry2,
+  rowEntry3,
+  rowEntry4,
+  rowEntry5,
+  rowEntry6,
+  rowEntry7,
+  rowName1,
+  rowName2,
+  rowName3,
+  rowName4,
+  rowName5,
+  rowName6,
+  rowName7,
+  tableHeading,
 }) {
   return (
-    <CoinDetailsTable>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coinmarket Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{market_cap_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coingecko Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{coingecko_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Asset Platform</CoinDetailsElement2>
-        <CoinDetailsElement2>{asset_platform_id}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coingecko Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{coingecko_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coinmarket Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{market_cap_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coingecko Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{coingecko_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-      <CoinDetailsTableRow>
-        <CoinDetailsElement2>Coinmarket Rank</CoinDetailsElement2>
-        <CoinDetailsElement2>{market_cap_rank}</CoinDetailsElement2>
-      </CoinDetailsTableRow>
-    </CoinDetailsTable>
+    <InformationContainer>
+      <CoinDetailsHeading>{tableHeading}</CoinDetailsHeading>
+      <CoinDetailsTable>
+        <tbody>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName1}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry1}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName2}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry2}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName3}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry3}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName4}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry4}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName5}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry5}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName6}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry6}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+          <CoinDetailsTableRow>
+            <CoinDetailsElement>{rowName7}</CoinDetailsElement>
+            <CoinDetailsElement>{rowEntry7}</CoinDetailsElement>
+          </CoinDetailsTableRow>
+        </tbody>
+      </CoinDetailsTable>
+    </InformationContainer>
   );
 }

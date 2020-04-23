@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const CoinHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: 350px;
   margin-top: 40px;
 `;
@@ -29,7 +28,7 @@ export const CoinDetailsBaseInformation = styled.div`
   display: flex;
   flex-direction: column;
   height: inherit;
-  width: 200px;
+  width: 325px;
 `;
 
 export const CoinDetailsHeadingContainer = styled.div`
@@ -52,7 +51,7 @@ export const CoinInformationLink = styled.a`
   display: ${(props) => props.display};
   text-decoration: none;
   transition: all 0.5s ease;
-  color: white;
+  color: ${(props) => props.theme.text};
 
   &:hover {
     color: ${(props) => props.theme.action};
@@ -81,7 +80,4 @@ export const CoinImage = styled.img`
   margin-top: 20px;
   width: 50px;
 `;
-export const CoinDetailsHeading = styled.h2`
-  color: ${(props) => props.theme.text};
-  text-decoration: underline;
-`;
+
