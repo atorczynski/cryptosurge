@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
-import ApexCharts from 'apexcharts';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
 
