@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { RadialChart } from 'react-vis';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
 
@@ -9,14 +10,31 @@ const InformationBar = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   flex-wrap: wrap;
+  box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
+`;
+
+const PieChartHeading = styled.h2`
+  color: ${(props) => props.theme.text};
+
+  text-decoration: underline;
+  text-align: center;
+  font-weight: 400;
+`;
+const PieChartCointainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default function CoinPage({ match }) {
   const [coin, setCoin] = React.useState({
     image: {},
+    market_data: {},
+    categories: {},
     links: {
       homepage: [],
       blockchain_site: [],
@@ -67,6 +85,13 @@ export default function CoinPage({ match }) {
     }
   };
 
+  const AnimationData = {
+    damping: 9,
+    stiffness: 20,
+  };
+
+  console.log(coin.circulating_supply);
+
   return (
     <InformationBar>
       <CoinDetailsRefs
@@ -88,44 +113,61 @@ export default function CoinPage({ match }) {
       ></CoinDetailsRefs>
       <CoinInformationTable
         tableHeading={'Base Information'}
-        coingecko_rank={coin.coingecko_rank}
-        market_cap_rank={coin.market_cap_rank}
-        asset_platform_id={checkIfNull(coin.asset_platform_id)}
-        hashingAlgorithm={checkIfNull(coin.hashing_algorithm)}
-        block_time_in_minutes={coin.block_time_in_minutes}
-        public_interest_score={cutFloatValue(coin.public_interest_score)}
-        liquidity_score={cutFloatValue(coin.liquidity_score)}
+        rowName1={'CoinGecko Rank'}
+        rowEntry1={coin.coingecko_rank}
+        rowName2={'CoinMarket Rank'}
+        rowEntry2={coin.market_cap_rank}
+        rowName3={'Type'}
+        rowEntry3={checkIfNull(coin.categories[0])}
+        rowName4={'Genesis Date'}
+        rowEntry4={checkIfNull(coin.genesis_date)}
+        rowName5={'Block Time'}
+        rowEntry5={coin.block_time_in_minutes}
+        rowName6={'Circulating Supply'}
+        rowEntry6={coin.circulating_supply}
+        rowName7={'Total Supply'}
+        rowEntry7={coin.market_data.total_supply}
       />
       <CoinInformationTable
         tableHeading={'Base Information'}
-        coingecko_rank={coin.coingecko_rank}
-        market_cap_rank={coin.market_cap_rank}
-        asset_platform_id={checkIfNull(coin.asset_platform_id)}
-        hashingAlgorithm={checkIfNull(coin.hashing_algorithm)}
-        block_time_in_minutes={coin.block_time_in_minutes}
-        public_interest_score={cutFloatValue(coin.public_interest_score)}
-        liquidity_score={cutFloatValue(coin.liquidity_score)}
+        rowName1={'CoinGecko Rank'}
+        rowEntry1={coin.coingecko_rank}
+        rowName2={'CoinMarket Rank'}
+        rowEntry2={coin.market_cap_rank}
+        rowName3={'Type'}
+        rowEntry3={checkIfNull(coin.categories[0])}
+        rowName4={'Genesis Date'}
+        rowEntry4={checkIfNull(coin.genesis_date)}
+        rowName5={'CoinGecko Rank'}
+        rowEntry5={coin.block_time_in_minutes}
+        rowName6={'CoinGecko Rank'}
+        rowEntry6={cutFloatValue(coin.public_interest_score)}
+        rowName7={'CoinGecko Rank'}
+        rowEntry7={cutFloatValue(coin.liquidity_score)}
       />
-      <CoinInformationTable
-        tableHeading={'Base Information'}
-        coingecko_rank={coin.coingecko_rank}
-        market_cap_rank={coin.market_cap_rank}
-        asset_platform_id={checkIfNull(coin.asset_platform_id)}
-        hashingAlgorithm={checkIfNull(coin.hashing_algorithm)}
-        block_time_in_minutes={coin.block_time_in_minutes}
-        public_interest_score={cutFloatValue(coin.public_interest_score)}
-        liquidity_score={cutFloatValue(coin.liquidity_score)}
-      />
-      <CoinInformationTable
-        tableHeading={'Base Information'}
-        coingecko_rank={coin.coingecko_rank}
-        market_cap_rank={coin.market_cap_rank}
-        asset_platform_id={checkIfNull(coin.asset_platform_id)}
-        hashingAlgorithm={checkIfNull(coin.hashing_algorithm)}
-        block_time_in_minutes={coin.block_time_in_minutes}
-        public_interest_score={cutFloatValue(coin.public_interest_score)}
-        liquidity_score={cutFloatValue(coin.liquidity_score)}
-      />
+      <PieChartCointainer>
+        <PieChartHeading>Community Prediction</PieChartHeading>
+        <RadialChart
+          data={[
+            {
+              angle: coin.sentiment_votes_up_percentage,
+              label: 'Buy',
+            },
+            {
+              angle: coin.sentiment_votes_down_percentage,
+              label: 'Sell',
+            },
+          ]}
+          width={250}
+          height={300}
+          animation={AnimationData}
+          labelsRadiusMultiplier={0.6}
+          labelsStyle={{
+            fontSize: 14,
+          }}
+          showLabels
+        />
+      </PieChartCointainer>
     </InformationBar>
   );
 }
