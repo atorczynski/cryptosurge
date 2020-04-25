@@ -92,9 +92,11 @@ export default function CoinPage({ match }) {
   };
 
   const DOMAIN = [
-    { name: 'asdasd', domain: [0, 10] },
-    { name: 'explosions', domain: [0, 10] },
-    { name: 'wow', domain: [0, 10] },
+    { name: 'CoingeckoScore', domain: [0, 10] },
+    { name: 'DeveloperScore', domain: [0, 10] },
+    { name: 'CommunityScore', domain: [0, 10] },
+    { name: 'LiquidityScore', domain: [0, 10] },
+    { name: 'PublicInterestScore', domain: [0, 10] },
   ];
 
   console.log(cutFloatValue(coin.community_score));
@@ -141,9 +143,11 @@ export default function CoinPage({ match }) {
           animation
           data={[
             {
-              explosions: 10,
-              wow: 10,
-              asdasd: 10,
+              DeveloperScore: 8,
+              CommunityScore: 6,
+              CoingeckoScore: 9,
+              LiquidityScore: 7,
+              PublicInterestScore: 10,
             },
           ]}
           domains={DOMAIN}
@@ -163,12 +167,12 @@ export default function CoinPage({ match }) {
             },
           }}
           margin={{
-            left: 40,
-            top: 40,
+            left: 55,
+            top: 50,
             bottom: 20,
-            right: 20,
+            right: 65,
           }}
-          width={300}
+          width={350}
           height={300}
           animation={AnimationData}
         >
