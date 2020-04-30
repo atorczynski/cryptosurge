@@ -4,7 +4,7 @@ import { NavbarElement, HeadingElement } from './NavBarComponents';
 export default function NavBar() {
   return (
     <NavbarElement>
-      <HeadingElement>CryptoSurge</HeadingElement>
+      <HeadingElement href={'/'}>CryptoSurge</HeadingElement>
     </NavbarElement>
   );
 }
