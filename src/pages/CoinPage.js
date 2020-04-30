@@ -18,7 +18,6 @@ const InformationBar = styled.div`
 
 const PieChartHeading = styled.h2`
   color: ${(props) => props.theme.text};
-
   text-decoration: underline;
   text-align: center;
   font-weight: 400;
@@ -32,8 +31,14 @@ const PieChartCointainer = styled.div`
 
 export default function CoinPage({ match }) {
   const [coin, setCoin] = React.useState({
-    sentiment_votes_up_percentage: {},
     image: {},
+    market_cap_rank: 4,
+    block_time_in_minutes: 3,
+    coingecko_score: 10,
+    developer_score: 10,
+    community_score: 10,
+    liquidity_score: 10,
+    public_interest_score: 10,
     market_data: { ath: {}, atl: {} },
     categories: {},
     links: {
@@ -92,14 +97,28 @@ export default function CoinPage({ match }) {
   };
 
   const DOMAIN = [
-    { name: 'CoingeckoScore', domain: [0, 10] },
-    { name: 'DeveloperScore', domain: [0, 10] },
-    { name: 'CommunityScore', domain: [0, 10] },
-    { name: 'LiquidityScore', domain: [0, 10] },
-    { name: 'PublicInterestScore', domain: [0, 10] },
+    { name: 'CoingeckoScore', domain: [0, 100] },
+    { name: 'DeveloperScore', domain: [0, 100] },
+    { name: 'CommunityScore', domain: [0, 100] },
+    { name: 'LiquidityScore', domain: [0, 100] },
+    { name: 'PublicInterestScore', domain: [0, 100] },
   ];
 
-  console.log(cutFloatValue(coin.community_score));
+  const data = [
+    {
+      DeveloperScore: coin.developer_score,
+      CommunityScore: coin.community_score,
+      CoingeckoScore: coin.coingecko_score,
+      LiquidityScore: coin.liquidity_score,
+      PublicInterestScore: coin.public_interest_score,
+    },
+  ];
+
+  console.log(
+    typeof coin.sentiment_votes_up_percentage,
+    typeof coin.market_cap_rank,
+    coin.market_cap_rank
+  );
 
   return (
     <InformationBar>
@@ -140,16 +159,7 @@ export default function CoinPage({ match }) {
       <PieChartCointainer>
         <PieChartHeading>Radial View</PieChartHeading>
         <RadarChart
-          animation
-          data={[
-            {
-              DeveloperScore: 8,
-              CommunityScore: 6,
-              CoingeckoScore: 9,
-              LiquidityScore: 7,
-              PublicInterestScore: 10,
-            },
-          ]}
+          data={data}
           domains={DOMAIN}
           style={{
             polygons: {
