@@ -4,8 +4,8 @@ import {
   CoinDetailsTable,
   CoinDetailsTableRow,
   CoinDetailsElement,
-  CoinDetailsHeading,
 } from './CoinInformationTableComponents';
+import { CoinDetailsHeading } from './CoinDetailsGlobalComponents';
 
 const InformationContainer = styled.div``;
 
