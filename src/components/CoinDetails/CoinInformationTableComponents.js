@@ -1,8 +1,11 @@
 import styled from '@emotion/styled';
 
 export const CoinDetailsTableRow = styled.tr`
-  :nth-of-type(even) {
-    background-color: #aaaaaa;
+  display: table-row;
+  border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+  transition: all 0.25s ease-in;
+  :hover {
+    background-color: #f2f2f2;
   }
 `;
 
@@ -18,13 +21,5 @@ export const CoinDetailsTable = styled.table`
   width: 325px;
   height: 300px;
   text-align: left;
-
   border-collapse: collapse;
-`;
-
-export const CoinDetailsHeading = styled.h2`
-  color: ${(props) => props.theme.text};
-  text-decoration: underline;
-  text-align: center;
-  font-weight: 400;
 `;
