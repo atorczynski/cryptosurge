@@ -13,7 +13,7 @@ function GlobalStyles() {
           box-sizing: border-box;
         }
         body {
-          font-size: 14px;
+          font-size: 12px;
           color: ${theme.text};
           margin: 0px;
           background-color: ${theme.background};

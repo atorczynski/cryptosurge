@@ -4,17 +4,20 @@ import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
-import { Ticker, TickerElement } from '../components/CoinDetails/Ticker';
+import {
+  AddBanner,
+  InfoContainer,
+} from '../components/CoinDetails/CoinDetailsGlobalComponents';
+import { Ticker } from '../components/CoinDetails/Ticker';
 
 import { cutFloatValue } from '../lib/helpers';
 import { TickerTableElement } from '../components/CoinDetails/TickerComponents';
 import { CoinDetailsTableRow } from '../components/CoinDetails/CoinInformationTableComponents';
 
-const testArray = [1, 2, 3, 4];
-
 const InformationBar = styled.div`
   display: flex;
   flex-direction: row;
+  background-color: #fff;
   justify-content: space-around;
   align-items: center;
   width: 100%;
@@ -26,9 +29,8 @@ const InformationBar = styled.div`
 
 const PieChartHeading = styled.h2`
   color: ${(props) => props.theme.text};
-  text-decoration: underline;
   text-align: center;
-  font-weight: 400;
+  font-weight: 200;
 `;
 const PieChartCointainer = styled.div`
   display: flex;
@@ -40,18 +42,25 @@ const PieChartCointainer = styled.div`
 const LiveChartContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
-  width: 60%;
+  background-color: #fff;
+  width: 100%;
   margin-top: 30px;
   height: 500px;
   flex-wrap: wrap;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
 `;
 const MiddleContainer = styled.div`
+  background-color: ${(props) => props.theme.background};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const MiddleContainerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 65%;
 `;
 
 export default function CoinPage({ match }) {
@@ -243,16 +252,20 @@ export default function CoinPage({ match }) {
           />
         </PieChartCointainer>
       </InformationBar>
+      <AddBanner />
       <MiddleContainer>
-        <LiveChartContainer>
-          <PieChartHeading>Live Data</PieChartHeading>
-          <TradingViewWidget
-            symbol={coin.symbol + 'USD'}
-            locale='en'
-            width={900}
-            height={400}
-          />
-        </LiveChartContainer>
+        <MiddleContainerWrapper>
+          <LiveChartContainer>
+            <PieChartHeading>Live Data</PieChartHeading>
+            <TradingViewWidget
+              symbol={coin.symbol + 'USD'}
+              locale='en'
+              width={1000}
+              height={400}
+            />
+          </LiveChartContainer>
+          <InfoContainer width={'100%'} height={'250px'}></InfoContainer>
+        </MiddleContainerWrapper>
         <Ticker
           heading={'Live Stock Price'}
           width={'30%'}
@@ -261,9 +274,11 @@ export default function CoinPage({ match }) {
               console.log(ticker);
               return (
                 <CoinDetailsTableRow key={ticker.id}>
-                  <TickerTableElement>{ticker.market.name}</TickerTableElement>
                   <TickerTableElement>
-                    {cutFloatValue(ticker.last)}
+                    {ticker.market.name} ({ticker.target})
+                  </TickerTableElement>
+                  <TickerTableElement>
+                    {'$' + cutFloatValue(ticker.last)}
                   </TickerTableElement>
                   <TickerTableElement>{ticker.volume}</TickerTableElement>
                 </CoinDetailsTableRow>

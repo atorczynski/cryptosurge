@@ -29,9 +29,9 @@ export function Ticker({ heading, width, height, tickerTableContent }) {
 export function TickerElement(tableElement1, tableElement2, tableElement3) {
   return (
     <TickerTableElement>
-      <td>{tableElement1}</td>
-      <td>{tableElement2}</td>
-      <td>{tableElement3}</td>
+      <TickerTableElement>{tableElement1}</TickerTableElement>
+      <TickerTableElement>{tableElement2}</TickerTableElement>
+      <TickerTableElement>{tableElement3}</TickerTableElement>
     </TickerTableElement>
   );
 }
