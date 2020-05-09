@@ -119,13 +119,16 @@ export default function CoinPage({ match }) {
   }
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      getData();
       getHistoryData();
       return () => {
         clearInterval(interval);
       };
-    }, 1000);
+    });
   }, []);
 
   const checkAvailable = (target) => {
@@ -161,9 +164,9 @@ export default function CoinPage({ match }) {
     }
   };
 
-  const AnimationData = {
-    damping: 9,
-    stiffness: 20,
+  const animationData = {
+    damping: 8,
+    stiffness: 14,
   };
 
   const DOMAIN = [
@@ -229,6 +232,7 @@ export default function CoinPage({ match }) {
           <PieChartHeading>Radial View</PieChartHeading>
           <RadarChart
             data={data}
+            animation={animationData}
             domains={DOMAIN}
             style={{
               polygons: {
@@ -253,7 +257,7 @@ export default function CoinPage({ match }) {
             }}
             width={350}
             height={300}
-            animation={true}
+            animation={animationData}
           >
             <CircularGridLines
               tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
@@ -277,7 +281,7 @@ export default function CoinPage({ match }) {
             ]}
             width={300}
             height={300}
-            animation={AnimationData}
+            animation={animationData}
             labelsRadiusMultiplier={0.6}
             labelsStyle={{
               fontSize: 14,
