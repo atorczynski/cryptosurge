@@ -7,6 +7,7 @@ import {
   CoinNameID,
   CoinInformationContainer,
   CoinInformationLink,
+  CoinPrice,
 } from './CoinDetailsRefsComponents';
 
 export default function CoinDetailsRefs({
@@ -23,10 +24,13 @@ export default function CoinDetailsRefs({
   displayAvailableBlockchain,
   displayAvailableReddit,
   displayAvailableGithub,
+  currentPrice,
+  currentChange,
 }) {
   return (
     <CoinHeaderContainer>
       <CoinNameContainer>
+        <CoinPrice currentChange={currentChange}>{currentPrice}</CoinPrice>
         <CoinName>{coinName}</CoinName>
         <CoinNameID>({coinNameID})</CoinNameID>
         <CoinImage src={coinImage} />

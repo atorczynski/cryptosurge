@@ -24,8 +24,16 @@ export default function Coin({
   trendColor7d,
   trendColor30d,
 }) {
+  const checkLink = (target) => {
+    if (link === 'binancecoin') {
+      return 'binance-coin';
+    } else {
+      return target;
+    }
+  };
+
   return (
-    <CoinContainer to={`/coins/${link}`}>
+    <CoinContainer to={`/coins/${checkLink(link)}`}>
       <CoinHeader>
         <CoinLogo src={coinLogo} />
         <CoinName>{coinName}</CoinName>

@@ -42,13 +42,8 @@ export default function Main() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      getData();
-
-      return () => {
-        clearInterval(interval);
-      };
-    }, 1000);
+    getData();
+    console.log('hi');
   }, []);
 
   return (

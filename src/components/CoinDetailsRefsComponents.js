@@ -81,3 +81,6 @@ export const CoinImage = styled.img`
   width: 50px;
 `;
 
+export const CoinPrice = styled.h2`
+  color: ${(props) => props.currentChange};
+`;
