@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
-import {
-  AddBanner,
-  InfoContainer,
-} from '../components/CoinDetails/CoinDetailsGlobalComponents';
+import { AdBanner } from '../components/CoinDetails/CoinDetailsGlobalComponents';
 import { Ticker } from '../components/CoinDetails/Ticker';
 
 import { cutFloatValue } from '../lib/helpers';
@@ -73,7 +70,7 @@ export default function CoinPage({ match }) {
     community_score: 10,
     liquidity_score: 10,
     public_interest_score: 10,
-    market_data: { ath: {}, atl: {} },
+    market_data: { ath: {}, atl: {}, current_price: {}, price_change_24h: {} },
     categories: {},
     tickers: [],
     links: {
@@ -86,20 +83,49 @@ export default function CoinPage({ match }) {
     },
     last: {},
   });
+  const [marketData, setMarketData] = React.useState({
+    data: [],
+  });
 
-  React.useEffect(() => {
-    async function getData() {
-      try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/${match.params.id}`
-        );
-        const data = await response.json();
-        setCoin(data);
-      } catch (error) {
-        console.log(error);
-      }
+  const checkLink = (target) => {
+    if (target === 'binance-coin') {
+      return 'binancecoin';
+    } else {
+      return target;
     }
-    getData();
+  };
+
+  async function getData() {
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
+      );
+      const data = await response.json();
+      setCoin(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function getHistoryData() {
+    try {
+      const response = await fetch(
+        `https://api.coincap.io/v2/assets/${match.params.id}/markets`
+      );
+      const data = await response.json();
+      setMarketData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getData();
+      getHistoryData();
+      return () => {
+        clearInterval(interval);
+      };
+    }, 1000);
   }, []);
 
   const checkAvailable = (target) => {
@@ -127,6 +153,14 @@ export default function CoinPage({ match }) {
     }
   };
 
+  const createTrendColor = (currentChange) => {
+    if (currentChange.toString().charAt(0) === '-') {
+      return '#FF4136';
+    } else {
+      return '#2ECC40';
+    }
+  };
+
   const AnimationData = {
     damping: 9,
     stiffness: 20,
@@ -150,12 +184,12 @@ export default function CoinPage({ match }) {
     },
   ];
 
-  //console.log(coin.links.blockchain_site);
-
   return (
     <div>
       <InformationBar>
         <CoinDetailsRefs
+          currentChange={createTrendColor(coin.market_data.price_change_24h)}
+          currentPrice={coin.market_data.current_price.usd}
           coinName={coin.name}
           coinImage={coin.image.small}
           coinNameID={coin.symbol}
@@ -252,7 +286,7 @@ export default function CoinPage({ match }) {
           />
         </PieChartCointainer>
       </InformationBar>
-      <AddBanner />
+      <AdBanner />
       <MiddleContainer>
         <MiddleContainerWrapper>
           <LiveChartContainer>
@@ -264,23 +298,23 @@ export default function CoinPage({ match }) {
               height={400}
             />
           </LiveChartContainer>
-          <InfoContainer width={'100%'} height={'250px'}></InfoContainer>
         </MiddleContainerWrapper>
         <Ticker
-          heading={'Live Stock Price'}
+          heading={'Market Watch'}
           width={'30%'}
-          tickerTableContent={coin.tickers.map((ticker) => {
-            if (ticker.target === 'USD' || ticker.target === 'USDT') {
-              console.log(ticker);
+          tickerTableContent={marketData.data.map((ticker) => {
+            if (ticker.quoteSymbol === 'USD' || ticker.quoteSymbol === 'USDT') {
               return (
                 <CoinDetailsTableRow key={ticker.id}>
                   <TickerTableElement>
-                    {ticker.market.name} ({ticker.target})
+                    {ticker.exchangeId} ({ticker.quoteSymbol})
                   </TickerTableElement>
                   <TickerTableElement>
-                    {'$' + cutFloatValue(ticker.last)}
+                    {'$' + cutFloatValue(ticker.priceUsd)}
                   </TickerTableElement>
-                  <TickerTableElement>{ticker.volume}</TickerTableElement>
+                  <TickerTableElement>
+                    {cutFloatValue(ticker.volumeUsd24Hr)} (24H)
+                  </TickerTableElement>
                 </CoinDetailsTableRow>
               );
             }
