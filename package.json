@@ -8,7 +8,8 @@
     "client": "cd client && npm run start",
     "start": "cd server && npm run dev",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "postinstall": "cd client && npm install"
   },
   "repository": {
     "type": "git",
