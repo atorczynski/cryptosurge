@@ -43,7 +43,6 @@ export default function Main() {
 
   useEffect(() => {
     getData();
-    console.log('hi');
   }, []);
 
   return (

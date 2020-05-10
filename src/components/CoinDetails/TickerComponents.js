@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const TickerContainer = styled.div`
-  display: flex;
+  display: ${(props) => props.display};
   flex-direction: column;
   margin-top: 30px;
   background-color: #fff;

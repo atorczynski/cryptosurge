@@ -30,7 +30,7 @@ export default function CoinDetailsRefs({
   return (
     <CoinHeaderContainer>
       <CoinNameContainer>
-        <CoinPrice currentChange={currentChange}>{currentPrice}</CoinPrice>
+        <CoinPrice currentChange={currentChange}>${currentPrice}</CoinPrice>
         <CoinName>{coinName}</CoinName>
         <CoinNameID>({coinNameID})</CoinNameID>
         <CoinImage src={coinImage} />
