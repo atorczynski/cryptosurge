@@ -7,9 +7,15 @@ import {
 } from './TickerComponents';
 import { CoinDetailsHeading } from './CoinDetailsGlobalComponents';
 
-export function Ticker({ heading, width, height, tickerTableContent }) {
+export function Ticker({
+  heading,
+  width,
+  height,
+  tickerTableContent,
+  display,
+}) {
   return (
-    <TickerContainer height={height} width={width}>
+    <TickerContainer height={height} width={width} display={display}>
       <CoinDetailsHeading>{heading}</CoinDetailsHeading>
       <TickerTable>
         <tbody>
