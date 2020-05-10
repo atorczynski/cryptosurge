@@ -128,7 +128,7 @@ export default function CoinPage({ match }) {
       return () => {
         clearInterval(interval);
       };
-    });
+    }, 5000);
   }, []);
 
   const checkAvailable = (target) => {
@@ -257,7 +257,7 @@ export default function CoinPage({ match }) {
             }}
             width={350}
             height={300}
-            animation={animationData}
+            animation={true}
           >
             <CircularGridLines
               tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
@@ -309,7 +309,7 @@ export default function CoinPage({ match }) {
           tickerTableContent={marketData.data.map((ticker) => {
             if (ticker.quoteSymbol === 'USD' || ticker.quoteSymbol === 'USDT') {
               return (
-                <CoinDetailsTableRow key={ticker.id}>
+                <CoinDetailsTableRow key={ticker.volumeUsd24Hr}>
                   <TickerTableElement>
                     {ticker.exchangeId} ({ticker.quoteSymbol})
                   </TickerTableElement>
