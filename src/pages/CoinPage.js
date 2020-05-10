@@ -128,7 +128,7 @@ export default function CoinPage({ match }) {
       return () => {
         clearInterval(interval);
       };
-    }, 5000);
+    }, 2000);
   }, []);
 
   const checkAvailable = (target) => {
@@ -163,6 +163,22 @@ export default function CoinPage({ match }) {
       return '#2ECC40';
     }
   };
+
+  function checkAvailability(arr, val) {
+    return arr.some(function (arrVal) {
+      return val === arrVal;
+    });
+  }
+
+  const unavailableSitesArray = [
+    'bitcoin-cash-sv',
+    'leo-token',
+    'ftx-token',
+    'paxos-standard',
+    'true-usd',
+    'husd',
+    'enjincoin',
+  ];
 
   const animationData = {
     damping: 8,
@@ -305,24 +321,37 @@ export default function CoinPage({ match }) {
         </MiddleContainerWrapper>
         <Ticker
           heading={'Market Watch'}
+          display={
+            checkAvailability(unavailableSitesArray, match.params.id)
+              ? 'none'
+              : 'flex'
+          }
           width={'30%'}
-          tickerTableContent={marketData.data.map((ticker) => {
-            if (ticker.quoteSymbol === 'USD' || ticker.quoteSymbol === 'USDT') {
-              return (
-                <CoinDetailsTableRow key={ticker.volumeUsd24Hr}>
-                  <TickerTableElement>
-                    {ticker.exchangeId} ({ticker.quoteSymbol})
-                  </TickerTableElement>
-                  <TickerTableElement>
-                    {'$' + cutFloatValue(ticker.priceUsd)}
-                  </TickerTableElement>
-                  <TickerTableElement>
-                    {cutFloatValue(ticker.volumeUsd24Hr)} (24H)
-                  </TickerTableElement>
-                </CoinDetailsTableRow>
-              );
-            }
-          })}
+          currentCoin={match.params.id}
+          tickerTableContent={
+            checkAvailability(unavailableSitesArray, match.params.id)
+              ? ''
+              : marketData.data.map((ticker) => {
+                  if (
+                    ticker.quoteSymbol === 'USD' ||
+                    ticker.quoteSymbol === 'USDT'
+                  ) {
+                    return (
+                      <CoinDetailsTableRow key={ticker.volumeUsd24Hr}>
+                        <TickerTableElement>
+                          {ticker.exchangeId} ({ticker.quoteSymbol})
+                        </TickerTableElement>
+                        <TickerTableElement>
+                          {'$' + cutFloatValue(ticker.priceUsd)}
+                        </TickerTableElement>
+                        <TickerTableElement>
+                          {cutFloatValue(ticker.volumeUsd24Hr)} (24H)
+                        </TickerTableElement>
+                      </CoinDetailsTableRow>
+                    );
+                  }
+                })
+          }
         />
       </MiddleContainer>
     </div>
