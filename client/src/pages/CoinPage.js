@@ -95,41 +95,40 @@ export default function CoinPage({ match }) {
     }
   };
 
-  async function getData() {
-    try {
-      const response = await fetch(
-        `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
-      );
-      const data = await response.json();
-      setCoin(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async function getHistoryData() {
-    try {
-      const response = await fetch(
-        `https://api.coincap.io/v2/assets/${match.params.id}/markets`
-      );
-      const data = await response.json();
-      setMarketData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
+    async function getData() {
+      try {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
+        );
+        const data = await response.json();
+        setCoin(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     getData();
-  }, []);
+  }, [match.params.id]);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      async function getHistoryData() {
+        try {
+          const response = await fetch(
+            `https://api.coincap.io/v2/assets/${match.params.id}/markets`
+          );
+          const data = await response.json();
+          setMarketData(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
       getHistoryData();
       return () => {
         clearInterval(interval);
       };
     }, 2000);
-  }, []);
+  }, [match.params.id]);
 
   const checkAvailable = (target) => {
     const data = target;
@@ -248,7 +247,6 @@ export default function CoinPage({ match }) {
           <PieChartHeading>Radial View</PieChartHeading>
           <RadarChart
             data={data}
-            animation={animationData}
             domains={DOMAIN}
             style={{
               polygons: {
@@ -277,8 +275,7 @@ export default function CoinPage({ match }) {
           >
             <CircularGridLines
               tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
-              style={{ opacity: 0.1 }}
-              style={{ fill: 'none', stroke: 'black' }}
+              style={{ fill: 'none', stroke: 'black', opacity: 0.1 }}
             />
           </RadarChart>
         </PieChartCointainer>
@@ -349,6 +346,8 @@ export default function CoinPage({ match }) {
                         </TickerTableElement>
                       </CoinDetailsTableRow>
                     );
+                  } else {
+                    return '';
                   }
                 })
           }
