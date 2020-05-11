@@ -6,8 +6,8 @@
   "scripts": {
     "build": "cd client && npm run build",
     "client": "cd client && npm start",
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
     "storybook": "cd client && npm run storybook",
     "postinstall": "cd client && npm install"
   },
@@ -22,6 +22,12 @@
   },
   "homepage": "https://github.com/atorczynski/cryptosurge#readme",
   "dependencies": {
-    "concurrently": "^5.2.0"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
   }
 }
