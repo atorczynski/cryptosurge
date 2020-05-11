@@ -1,51 +1,33 @@
 {
   "name": "cryptosurge",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/styled": "^10.0.27",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^10.0.1",
-    "@testing-library/user-event": "^10.0.0",
-    "emotion-theming": "^10.0.27",
-    "react": "^16.13.1",
-    "react-dom": "^16.12.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "react-tradingview-widget": "^1.3.2",
-    "react-vis": "^1.11.7"
-  },
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build": "cd client && npm run build",
+    "client": "cd client && npm start",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "storybook": "cd client && npm run storybook",
+    "postinstall": "cd client && npm install"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atorczynski/cryptosurge.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atorczynski/cryptosurge/issues"
+  },
+  "homepage": "https://github.com/atorczynski/cryptosurge#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13",
+    "path": "^0.12.7"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^5.3.17",
-    "@storybook/addon-links": "^5.3.17",
-    "@storybook/addon-viewport": "^5.3.14",
-    "@storybook/addons": "^5.3.14",
-    "@storybook/preset-create-react-app": "^2.1.0",
-    "@storybook/react": "^5.3.17",
-    "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.18.3"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
   }
 }
