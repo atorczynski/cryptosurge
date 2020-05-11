@@ -6,10 +6,10 @@
   "scripts": {
     "build": "cd client && npm run build",
     "client": "cd client && npm start",
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
+    "server": "nodemon server/index.js",
     "storybook": "cd client && npm run storybook",
-    "postinstall": "cd client && npm install"
+    "postinstall": "cd client && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run start --prefix client\""
   },
   "repository": {
     "type": "git",
