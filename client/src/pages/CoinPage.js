@@ -10,6 +10,7 @@ import { Ticker } from '../components/CoinDetails/Ticker';
 import { cutFloatValue } from '../lib/helpers';
 import { TickerTableElement } from '../components/CoinDetails/TickerComponents';
 import { CoinDetailsTableRow } from '../components/CoinDetails/CoinInformationTableComponents';
+import Skeleton from 'react-loading-skeleton';
 
 const InformationBar = styled.div`
   display: flex;
@@ -61,16 +62,17 @@ const MiddleContainerWrapper = styled.div`
 `;
 
 export default function CoinPage({ match }) {
+  const [isLoading, setLoading] = React.useState(true);
   const [coin, setCoin] = React.useState({
     image: {},
-    market_cap_rank: 4,
-    block_time_in_minutes: 3,
+    market_cap_rank: 0,
+    block_time_in_minutes: 0,
     coingecko_score: 10,
     developer_score: 10,
     community_score: 10,
     liquidity_score: 10,
     public_interest_score: 10,
-    market_data: { ath: {}, atl: {}, current_price: {}, price_change_24h: {} },
+    market_data: { ath: 0, atl: 0, current_price: {}, price_change_24h: {} },
     categories: {},
     tickers: [],
     links: {
@@ -98,6 +100,7 @@ export default function CoinPage({ match }) {
   useEffect(() => {
     async function getData() {
       try {
+        setLoading(true);
         const response = await fetch(
           `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
         );
@@ -106,29 +109,23 @@ export default function CoinPage({ match }) {
       } catch (error) {
         console.log(error);
       }
+      setLoading(false);
     }
     getData();
-  }, [match.params.id]);
+    getHistoryData();
+  }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      async function getHistoryData() {
-        try {
-          const response = await fetch(
-            `https://api.coincap.io/v2/assets/${match.params.id}/markets`
-          );
-          const data = await response.json();
-          setMarketData(data);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      getHistoryData();
-      return () => {
-        clearInterval(interval);
-      };
-    }, 2000);
-  }, [match.params.id]);
+  async function getHistoryData() {
+    try {
+      const response = await fetch(
+        `https://api.coincap.io/v2/assets/${match.params.id}/markets`
+      );
+      const data = await response.json();
+      setMarketData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const checkAvailable = (target) => {
     const data = target;
@@ -229,78 +226,113 @@ export default function CoinPage({ match }) {
         <CoinInformationTable
           tableHeading={'Base Information'}
           rowName1={'CoinGecko Rank'}
-          rowEntry1={coin.coingecko_rank}
+          rowEntry1={isLoading ? <Skeleton width={50} /> : coin.coingecko_rank}
           rowName2={'CoinMarket Rank'}
-          rowEntry2={coin.market_cap_rank}
+          rowEntry2={isLoading ? <Skeleton width={50} /> : coin.market_cap_rank}
           rowName3={'Type'}
-          rowEntry3={checkIfNull(coin.categories[0])}
+          rowEntry3={
+            isLoading ? (
+              <Skeleton width={50} />
+            ) : (
+              checkIfNull(coin.categories[0])
+            )
+          }
           rowName4={'All Time High'}
-          rowEntry4={checkIfNull('$' + coin.market_data.ath.usd)}
+          rowEntry4={
+            isLoading ? (
+              <Skeleton width={50} />
+            ) : (
+              checkIfNull('$' + coin.market_data.ath.usd)
+            )
+          }
           rowName5={'All Time Low'}
-          rowEntry5={'$' + coin.market_data.atl.usd}
+          rowEntry5={
+            isLoading ? <Skeleton width={50} /> : '$' + coin.market_data.atl.usd
+          }
           rowName6={'Circulating Supply'}
-          rowEntry6={coin.market_data.circulating_supply}
+          rowEntry6={
+            isLoading ? (
+              <Skeleton width={50} />
+            ) : (
+              coin.market_data.circulating_supply
+            )
+          }
           rowName7={'Total Supply'}
-          rowEntry7={coin.market_data.total_supply}
+          rowEntry7={
+            isLoading ? <Skeleton width={50} /> : coin.market_data.total_supply
+          }
         />
         <PieChartCointainer>
-          <PieChartHeading>Radial View</PieChartHeading>
-          <RadarChart
-            data={data}
-            domains={DOMAIN}
-            style={{
-              polygons: {
-                fillOpacity: 0.4,
-                strokeWidth: 2,
-                strokeOpacity: 1,
-              },
-              axes: {
-                text: { opacity: 0.0 },
-              },
-              labels: {
-                textAnchor: 'middle',
-                fontSize: 11,
-                fontWeight: 400,
-              },
-            }}
-            margin={{
-              left: 55,
-              top: 50,
-              bottom: 20,
-              right: 65,
-            }}
-            width={350}
-            height={300}
-            animation={true}
-          >
-            <CircularGridLines
-              tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
-              style={{ fill: 'none', stroke: 'black', opacity: 0.1 }}
-            />
-          </RadarChart>
+          {isLoading ? (
+            <Skeleton width={270} height={270} circle={true} />
+          ) : (
+            <div>
+              <PieChartHeading>Radial View</PieChartHeading>
+              <RadarChart
+                data={data}
+                domains={DOMAIN}
+                style={{
+                  polygons: {
+                    fillOpacity: 0.4,
+                    strokeWidth: 2,
+                    strokeOpacity: 1,
+                  },
+                  axes: {
+                    text: { opacity: 0.0 },
+                  },
+                  labels: {
+                    textAnchor: 'middle',
+                    fontSize: 11,
+                    fontWeight: 400,
+                  },
+                }}
+                margin={{
+                  left: 55,
+                  top: 50,
+                  bottom: 20,
+                  right: 65,
+                }}
+                width={350}
+                height={300}
+                animation={true}
+              >
+                <CircularGridLines
+                  tickValues={[...new Array(10)].map((v, i) => i / 9 - 1)}
+                  style={{ fill: 'none', stroke: 'black', opacity: 0.1 }}
+                />
+              </RadarChart>
+            </div>
+          )}
         </PieChartCointainer>
         <PieChartCointainer>
-          <PieChartHeading>Community Prediction</PieChartHeading>
-          <RadialChart
-            data={[
-              {
-                angle: coin.sentiment_votes_up_percentage,
-                label: 'Buy',
-              },
-              {
-                angle: coin.sentiment_votes_down_percentage,
-                label: 'Sell',
-              },
-            ]}
-            width={300}
-            height={300}
-            animation={animationData}
-            labelsRadiusMultiplier={0.6}
-            labelsStyle={{
-              fontSize: 14,
-            }}
-            showLabels
-          />
+          {isLoading ? (
+            <Skeleton width={270} height={270} circle={true} />
+          ) : (
+            <div>
+              {' '}
+              <PieChartHeading>Community Prediction</PieChartHeading>
+              <RadialChart
+                data={[
+                  {
+                    angle: coin.sentiment_votes_up_percentage,
+                    label: 'Buy',
+                  },
+                  {
+                    angle: coin.sentiment_votes_down_percentage,
+                    label: 'Sell',
+                  },
+                ]}
+                width={300}
+                height={300}
+                animation={animationData}
+                labelsRadiusMultiplier={0.6}
+                labelsStyle={{
+                  fontSize: 14,
+                }}
+                showLabels
+              />
+            </div>
+          )}
         </PieChartCointainer>
       </InformationBar>
       <AdBanner />
