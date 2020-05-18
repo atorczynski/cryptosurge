@@ -3,6 +3,7 @@ import Coin from '../components/Coin';
 import styled from '@emotion/styled';
 
 import { cutFloatValue } from '../lib/helpers';
+import LoadingCoinRender from '../components/LoadingCoinRender';
 
 const Container = styled.div`
   width: 100%;
@@ -47,31 +48,37 @@ export default function Main() {
 
   return (
     <Container>
-      {coins.map((coin) => (
-        <Coin
-          trendColor24h={createTrendColor(
-            coin.market_data.price_change_percentage_24h
-          )}
-          trendColor7d={createTrendColor(
-            coin.market_data.price_change_percentage_7d
-          )}
-          trendColor30d={createTrendColor(
-            coin.market_data.price_change_percentage_30d
-          )}
-          link={coin.id}
-          key={coin.id}
-          coinName={coin.id}
-          coinLogo={coin.image.thumb}
-          change24h={cutFloatValue(
-            coin.market_data.price_change_percentage_24h
-          )}
-          change7d={cutFloatValue(coin.market_data.price_change_percentage_7d)}
-          change30d={cutFloatValue(
-            coin.market_data.price_change_percentage_30d
-          )}
-          currentPrice={coin.market_data.current_price.usd}
-        />
-      ))}
+      {isLoading ? (
+        <LoadingCoinRender />
+      ) : (
+        coins.map((coin) => (
+          <Coin
+            trendColor24h={createTrendColor(
+              coin.market_data.price_change_percentage_24h
+            )}
+            trendColor7d={createTrendColor(
+              coin.market_data.price_change_percentage_7d
+            )}
+            trendColor30d={createTrendColor(
+              coin.market_data.price_change_percentage_30d
+            )}
+            link={coin.id}
+            key={coin.id}
+            coinName={coin.id}
+            coinLogo={coin.image.thumb}
+            change24h={cutFloatValue(
+              coin.market_data.price_change_percentage_24h
+            )}
+            change7d={cutFloatValue(
+              coin.market_data.price_change_percentage_7d
+            )}
+            change30d={cutFloatValue(
+              coin.market_data.price_change_percentage_30d
+            )}
+            currentPrice={coin.market_data.current_price.usd}
+          />
+        ))
+      )}
     </Container>
   );
 }
