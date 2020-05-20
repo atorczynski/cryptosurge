@@ -1,7 +1,12 @@
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
+const apiRoutes = require('./routes/api');
 
 const app = express();
+app.use('/api', apiRoutes);
+
+morgan('tiny');
 
 app.use(express.json());
 app.use(express.static('client/build'));
