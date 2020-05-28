@@ -20,9 +20,15 @@ const InformationBar = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 30px;
-  height: 450px;
+  height: auto;
   flex-wrap: wrap;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
+`;
+
+const ResponsiveWrapper = styled.div`
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
 `;
 
 const PieChartHeading = styled.h2`
@@ -45,12 +51,12 @@ const LiveChartContainer = styled.div`
   width: 100%;
   margin-top: 30px;
   height: 500px;
-  flex-wrap: wrap;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
 `;
 const MiddleContainer = styled.div`
   background-color: ${(props) => props.theme.background};
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 `;
@@ -62,6 +68,7 @@ const MiddleContainerWrapper = styled.div`
 `;
 
 export default function CoinPage({ match }) {
+  const [windowSize] = React.useState(useWindowSize().width);
   const [isLoading, setLoading] = React.useState(true);
   const [coin, setCoin] = React.useState({
     image: {},
@@ -89,6 +96,11 @@ export default function CoinPage({ match }) {
     data: [],
   });
 
+  const viewPorts = {
+    mobile: 400,
+    tablet: 1024,
+  };
+
   const checkLink = (target) => {
     if (target === 'binance-coin') {
       return 'binancecoin';
@@ -96,6 +108,33 @@ export default function CoinPage({ match }) {
       return target;
     }
   };
+
+  function useWindowSize() {
+    const isClient = typeof window === 'object';
+
+    function getSize() {
+      return {
+        width: isClient ? window.innerWidth : undefined,
+        height: isClient ? window.innerHeight : undefined,
+      };
+    }
+
+    const [windowSize, setWindowSize] = React.useState(getSize);
+
+    useEffect(() => {
+      if (!isClient) {
+        return false;
+      }
+
+      function handleResize() {
+        setWindowSize(getSize());
+      }
+      console.log(windowSize);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    return windowSize;
+  }
 
   useEffect(() => {
     async function getData() {
@@ -199,8 +238,10 @@ export default function CoinPage({ match }) {
     },
   ];
 
+  console.log(windowSize);
+
   return (
-    <div>
+    <ResponsiveWrapper>
       <InformationBar>
         <CoinDetailsRefs
           currentChange={createTrendColor(coin.market_data.price_change_24h)}
@@ -292,8 +333,8 @@ export default function CoinPage({ match }) {
                   bottom: 20,
                   right: 65,
                 }}
-                width={350}
-                height={300}
+                width={windowSize < 700 ? 250 : 350}
+                height={windowSize < 700 ? 200 : 300}
                 animation={true}
               >
                 <CircularGridLines
@@ -322,8 +363,8 @@ export default function CoinPage({ match }) {
                     label: 'Sell',
                   },
                 ]}
-                width={300}
-                height={300}
+                width={windowSize < 700 ? 250 : 300}
+                height={windowSize < 700 ? 200 : 300}
                 animation={animationData}
                 labelsRadiusMultiplier={0.6}
                 labelsStyle={{
@@ -338,15 +379,18 @@ export default function CoinPage({ match }) {
       <AdBanner />
       <MiddleContainer>
         <MiddleContainerWrapper>
-          <LiveChartContainer>
-            <PieChartHeading>Live Data</PieChartHeading>
-            <TradingViewWidget
-              symbol={coin.symbol + 'USD'}
-              locale='en'
-              width={1000}
-              height={400}
-            />
-          </LiveChartContainer>
+          {windowSize < 700 ? (
+            ''
+          ) : (
+            <LiveChartContainer>
+              <PieChartHeading>Live Data</PieChartHeading>
+              <TradingViewWidget
+                symbol={coin.symbol + 'USD'}
+                locale='en'
+                autosize
+              />
+            </LiveChartContainer>
+          )}
         </MiddleContainerWrapper>
         <Ticker
           heading={'Market Watch'}
@@ -355,7 +399,7 @@ export default function CoinPage({ match }) {
               ? 'none'
               : 'flex'
           }
-          width={'30%'}
+          width={windowSize < 700 ? '100%' : '30%'}
           currentCoin={match.params.id}
           tickerTableContent={
             checkAvailability(unavailableSitesArray, match.params.id)
@@ -385,6 +429,6 @@ export default function CoinPage({ match }) {
           }
         />
       </MiddleContainer>
-    </div>
+    </ResponsiveWrapper>
   );
 }

@@ -16,10 +16,14 @@ export const HeadingElement = styled.a`
   font-weight: bold;
   text-decoration: none;
   color: white;
-  margin-left: 12rem;
+  margin-left: 10%;
   transition: all 0.5s ease;
 
   &:hover {
     color: ${(props) => props.theme.action};
+  }
+
+  @media (max-width: 576px) {
+    margin-left: 50%;
   }
 `;
