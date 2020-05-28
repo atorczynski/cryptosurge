@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const CoinHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
-  height: 350px;
+  flex-wrap: wrap;
+  height: auto;
   margin-top: 40px;
 `;
 
