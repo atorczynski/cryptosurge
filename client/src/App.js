@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import GlobalStyles from './GlobalStyles';
 import { primary } from './theme/themes';
 import { ThemeProvider } from 'emotion-theming';
-import NavBar from './components/NavBar';
+import AppBar from './components/AppBar';
 import Main from './pages/Main';
 import CoinPage from './pages/CoinPage';
 import { ContentContainer } from './components/BodyHelpers';
@@ -12,7 +12,7 @@ function App() {
   return (
     <ThemeProvider theme={primary}>
       <GlobalStyles />
-      <NavBar />
+      <AppBar />
       <ContentContainer>
         <Router>
           <Switch>
