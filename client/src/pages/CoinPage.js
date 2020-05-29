@@ -96,11 +96,6 @@ export default function CoinPage({ match }) {
     data: [],
   });
 
-  const viewPorts = {
-    mobile: 400,
-    tablet: 1024,
-  };
-
   const checkLink = (target) => {
     if (target === 'binance-coin') {
       return 'binancecoin';
