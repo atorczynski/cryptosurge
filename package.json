@@ -27,7 +27,7 @@
     "@material-ui/icons": "^4.9.1",
     "express": "^4.17.1",
     "material-ui-icons": "^1.0.0-beta.36",
-    "mongoose": "^5.9.13",
+    "mongoose": "^5.9.17",
     "path": "^0.12.7"
   },
   "devDependencies": {
