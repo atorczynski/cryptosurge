@@ -25,7 +25,7 @@ export default function Main() {
     if (currentChange.toString().charAt(0) === '-') {
       return '#FF4136';
     } else {
-      return '#2ECC40';
+      return '#008000';
     }
   };
 
