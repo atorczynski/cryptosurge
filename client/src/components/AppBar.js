@@ -17,12 +17,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const style = {
+  'background-color': '#333',
+  position: 'fixed',
+};
+
 export default function MenuAppBar() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar position='static'>
+      <AppBar style={style}>
         <Toolbar>
           <Typography variant='h6' className={classes.title} align={'center'}>
             <HeadingElement href={'/'}>Cryptosurge</HeadingElement>
