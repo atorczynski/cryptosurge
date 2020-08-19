@@ -9,6 +9,7 @@ import CoinPage from './pages/CoinPage';
 import { ContentContainer } from './components/BodyHelpers';
 
 import CookieConsent from 'react-cookie-consent';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -18,16 +19,17 @@ function App() {
       <CookieConsent>
         This website uses cookies to enhance the user experience.
       </CookieConsent>
-      <ContentContainer>
-        <Router>
+      <Router>
+        <ContentContainer>
           <Switch>
             <Route exact path='/'>
               <Main />
             </Route>
             <Route path={'/coins/:id'} component={CoinPage} />
           </Switch>
-        </Router>
-      </ContentContainer>
+        </ContentContainer>
+        <Footer />
+      </Router>
     </ThemeProvider>
   );
 }
