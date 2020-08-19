@@ -5,7 +5,7 @@ import {
   TickerTable,
   TickerTableElement,
 } from './TickerComponents';
-import { CoinDetailsHeading } from './CoinDetailsGlobalComponents';
+import { CoinDetailsHeading, Underline } from './CoinDetailsGlobalComponents';
 
 export function Ticker({
   heading,
@@ -17,6 +17,7 @@ export function Ticker({
   return (
     <TickerContainer height={height} width={width} display={display}>
       <CoinDetailsHeading>{heading}</CoinDetailsHeading>
+      <Underline />
       <TickerTable>
         <tbody>
           <tr>

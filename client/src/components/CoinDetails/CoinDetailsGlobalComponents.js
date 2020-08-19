@@ -2,8 +2,17 @@ import styled from '@emotion/styled';
 
 export const CoinDetailsHeading = styled.h2`
   color: ${(props) => props.theme.text};
+  height: 20px;
   text-align: center;
   font-weight: 300;
+`;
+
+export const Underline = styled.hr`
+  width: 100%;
+  opacity: 50%;
+  text-align: left;
+  margin-left: 0;
+  margin-bottom: 10px;
 `;
 
 export const AdBanner = styled.div`

@@ -10,7 +10,7 @@ import Skeleton from 'react-loading-skeleton';
 
 export default function LoadingCoin() {
   return (
-    <CoinContainer>
+    <CoinContainer to={'#'}>
       <CoinHeader>
         <Skeleton width={30} height={30} circle={true} />
         <Skeleton width={60} />

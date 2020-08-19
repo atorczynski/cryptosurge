@@ -64,7 +64,7 @@ const MiddleContainer = styled.div`
 const MiddleContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 100%;
 `;
 
 export default function CoinPage({ match }) {
@@ -124,7 +124,6 @@ export default function CoinPage({ match }) {
       function handleResize() {
         setWindowSize(getSize());
       }
-      console.log(windowSize);
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []);
@@ -232,8 +231,6 @@ export default function CoinPage({ match }) {
       PublicInterestScore: coin.public_interest_score,
     },
   ];
-
-  console.log(windowSize);
 
   return (
     <ResponsiveWrapper>
@@ -382,7 +379,7 @@ export default function CoinPage({ match }) {
               <TradingViewWidget
                 symbol={coin.symbol + 'USD'}
                 locale='en'
-                autosize
+                autosize={true}
               />
             </LiveChartContainer>
           )}
@@ -394,7 +391,7 @@ export default function CoinPage({ match }) {
               ? 'none'
               : 'flex'
           }
-          width={windowSize < 700 ? '100%' : '30%'}
+          width={windowSize < 700 ? '100%' : '100%'}
           currentCoin={match.params.id}
           tickerTableContent={
             checkAvailability(unavailableSitesArray, match.params.id)
@@ -407,7 +404,7 @@ export default function CoinPage({ match }) {
                     return (
                       <CoinDetailsTableRow key={ticker.volumeUsd24Hr}>
                         <TickerTableElement>
-                          {ticker.exchangeId} ({ticker.quoteSymbol})
+                          {ticker.exchangeId}({ticker.quoteSymbol})
                         </TickerTableElement>
                         <TickerTableElement>
                           {'$' + cutFloatValue(ticker.priceUsd)}
@@ -418,7 +415,7 @@ export default function CoinPage({ match }) {
                       </CoinDetailsTableRow>
                     );
                   } else {
-                    return '';
+                    return;
                   }
                 })
           }
