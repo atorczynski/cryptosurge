@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/atorczynski/cryptosurge#readme",
   "dependencies": {
+    "crypto-news-api": "^2.2.2",
     "express": "^4.17.1",
     "mongoose": "^5.9.13",
     "path": "^0.12.7"
