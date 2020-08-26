@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
@@ -15,7 +15,7 @@ const limiter = rateLimit({
   max: 100,
 });
 
-app.use(helmet());
+//app.use(helmet());
 app.use(limiter);
 
 app.use(morgan('combined'));
