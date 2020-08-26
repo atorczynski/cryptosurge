@@ -17,6 +17,7 @@ router.get('/news/:lang/:coin', async (req, res) => {
       const articles = await Api.getTopNewsByCoin(coin, lang);
       res.status('200').send(articles);
       res.end();
+      console.log('sent ' + lang + ' ' + coin);
     } catch (error) {
       console.log(error);
       res.end();
