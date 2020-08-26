@@ -153,7 +153,7 @@ export default function CoinPage({ match }) {
         let location = await jsonData.country_code.toLowerCase();
 
         const newsResponse = await fetch(
-          `http://localhost:8080/api/news/${location}/${match.params.id}`
+          `https://localhost:8080/api/news/${location}/${match.params.id}`
         );
         const newsData = await newsResponse.json();
         setNews(newsData);
