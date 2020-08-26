@@ -53,9 +53,6 @@ function App() {
               <Main />
             </Route>
             <Route path={'/coins/:id'} component={CoinPage} />
-            <Route path={'/hello'}>
-              <Main />
-            </Route>
           </Switch>
         </ContentContainer>
         <Footer />
