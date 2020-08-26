@@ -31,12 +31,9 @@ app.use('/api/', routes);
 
 app.use(express.json());
 
-// // Serve any static files
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-// Handle React routing, return all requests to React app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function (req, res, next) {
+  res.sendFile(path.resolve('build/index.html'));
 });
 
 // app.use(express.static('client/build'));
