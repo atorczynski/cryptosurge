@@ -23,7 +23,6 @@ function useWindowSize() {
 
   const [windowSize, setWindowSize] = React.useState(getSize);
 
-  console.log(windowSize);
   React.useEffect(() => {
     if (!isClient) {
       return false;
@@ -34,13 +33,12 @@ function useWindowSize() {
     }
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isClient, getSize]);
   return windowSize;
 }
 
 function App() {
   const [windowSize] = React.useState(useWindowSize().width);
-  console.log(windowSize);
   return (
     <ThemeProvider theme={primary}>
       <GlobalStyles />
