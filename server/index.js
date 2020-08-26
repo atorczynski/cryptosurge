@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 
 require('dotenv').config();
 
-const routes = require('./server/newsApi');
+const routes = require('./newsApi');
 
 const app = express();
 
@@ -14,13 +14,6 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
 });
-
-let allowCrossDomain = function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-};
-app.use(allowCrossDomain);
 
 app.use(helmet());
 app.use(limiter);
@@ -31,10 +24,10 @@ app.use('/api/', routes);
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get('*', function (_, res) {
-  res.sendFile(path.join(__dirname, './client/build/index.html'), function (
+  res.sendFile(path.join(__dirname, '../client/build/index.html'), function (
     err
   ) {
     if (err) {

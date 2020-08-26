@@ -8,7 +8,6 @@ import Main from './pages/Main';
 import CoinPage from './pages/CoinPage';
 import { ContentContainer } from './components/BodyHelpers';
 
-import CookieConsent from 'react-cookie-consent';
 import Footer from './components/Footer/Footer';
 
 function useWindowSize() {
@@ -43,9 +42,6 @@ function App() {
     <ThemeProvider theme={primary}>
       <GlobalStyles />
       <AppBar />
-      <CookieConsent>
-        This website uses cookies to enhance the user experience.
-      </CookieConsent>
       <Router>
         <ContentContainer paddingTop={windowSize < '700' ? '50px' : '80px'}>
           <Switch>
