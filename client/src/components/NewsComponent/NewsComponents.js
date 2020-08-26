@@ -28,6 +28,8 @@ export const NewsRowContainer = styled.div`
 
   @media (max-width: 379px) {
     height: 250px;
+    align-content: center;
+    justify-content: center;
   }
 `;
 
