@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit');
 
 require('dotenv').config();
 
-const routes = require('./newsApi');
+const routes = require('./server/newsApi');
 
 const app = express();
 
@@ -32,11 +32,11 @@ app.use('/api/', routes);
 app.use(express.json());
 
 // // Serve any static files
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Handle React routing, return all requests to React app
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 // app.use(express.static('client/build'));
