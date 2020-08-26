@@ -31,17 +31,18 @@ app.use('/api/', routes);
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+// // Serve any static files
+app.use(express.static(path.join(__dirname, '../client/build')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
-app.listen(9000);
 
 // app.use(express.static('client/build'));
 
 // app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'));
+//   res.sendFile(path.resolve(__dirname, 'client/build', 'build', 'index.html'));
 // });
 
 const port = process.env.PORT || 8080;
