@@ -13,7 +13,7 @@ export default function Footer() {
     <FooterContainer>
       <FooterContentContainer>
         <FooterText>Made with </FooterText>
-        <HeartEmoji> ❤️ </HeartEmoji>
+        <HeartEmoji role={'img'} aria-label={"Heath Emoji"}>❤️</HeartEmoji>
         <FooterText> by </FooterText>
         <FooterLinkExternal href={'https://github.com/atorczynski'}>
           Artur Torczynski

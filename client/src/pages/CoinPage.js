@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
 import CoinInformationTable from '../components/CoinDetails/CoinInformationTable';
-import { AdBanner } from '../components/CoinDetails/CoinDetailsGlobalComponents';
+import {
+  AdBanner,
+  Underline,
+} from '../components/CoinDetails/CoinDetailsGlobalComponents';
 import { Ticker } from '../components/CoinDetails/Ticker';
 
 import { cutFloatValue } from '../lib/helpers';
 import { TickerTableElement } from '../components/CoinDetails/TickerComponents';
 import { CoinDetailsTableRow } from '../components/CoinDetails/CoinInformationTableComponents';
 import Skeleton from 'react-loading-skeleton';
+import NewsComponent from '../components/NewsComponent/News';
+import NewsRow from '../components/NewsComponent/NewsRow';
+import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
 
 const InformationBar = styled.div`
   display: flex;
@@ -68,9 +74,11 @@ const MiddleContainerWrapper = styled.div`
 `;
 
 export default function CoinPage({ match }) {
-  const [windowSize] = React.useState(useWindowSize().width);
-  const [isLoading, setLoading] = React.useState(true);
-  const [coin, setCoin] = React.useState({
+  const [windowSize] = useState(useWindowSize().width);
+  const [locationData] = useState(null);
+  const [news, setNews] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [coin, setCoin] = useState({
     image: {},
     market_cap_rank: 0,
     block_time_in_minutes: 0,
@@ -139,13 +147,24 @@ export default function CoinPage({ match }) {
         );
         const data = await response.json();
         setCoin(data);
+
+        const locationData = await fetch('https://ipapi.co/json');
+        const jsonData = await locationData.json();
+        let location = await jsonData.country_code.toLowerCase();
+
+        const newsResponse = await fetch(
+          `http://localhost:8080/api/news/${location}/${match.params.id}`
+        );
+        const newsData = await newsResponse.json();
+        setNews(newsData);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
-    getData();
     getHistoryData();
+    getData(locationData);
   }, []);
 
   async function getHistoryData() {
@@ -391,7 +410,7 @@ export default function CoinPage({ match }) {
               ? 'none'
               : 'flex'
           }
-          width={windowSize < 700 ? '100%' : '100%'}
+          width={windowSize < 1025 ? '100%' : '500px'}
           currentCoin={match.params.id}
           tickerTableContent={
             checkAvailability(unavailableSitesArray, match.params.id)
@@ -415,11 +434,32 @@ export default function CoinPage({ match }) {
                       </CoinDetailsTableRow>
                     );
                   } else {
-                    return;
+                    return '';
                   }
                 })
           }
         />
+        <NewsComponent width={windowSize < 1025 ? '100%' : '1000px'}>
+          {isLoading ? (
+            <NewsLoadingRender />
+          ) : (
+            news.map((post) => {
+              return (
+                <aside key={post._id}>
+                  <NewsRow
+                    key={post._id}
+                    newsRedirect={post.url}
+                    newsHeading={post.title}
+                    imgDisplay={!post.thumbnail ? 'none' : 'block'}
+                    newsImageSrc={post.thumbnail}
+                    newsText={post.description}
+                  />
+                  <Underline />
+                </aside>
+              );
+            })
+          )}
+        </NewsComponent>
       </MiddleContainer>
     </ResponsiveWrapper>
   );

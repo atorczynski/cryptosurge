@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Coin from '../components/Coin';
 import styled from '@emotion/styled';
+import Particles from 'react-particles-js';
 
 import { cutFloatValue } from '../lib/helpers';
 import LoadingCoinRender from '../components/LoadingCoinRender';
@@ -15,6 +16,31 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
   }
+`;
+
+const Jumbotron = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  background-color: lightgrey;
+  overflow: hidden;
+  margin-top: 20px;
+`;
+
+const JumbotronHeading = styled.h2`
+  position: absolute;
+  font-size: 30px;
+`;
+const JumbotronCaption = styled.h4`
+  opacity: 0.8;
+  position: absolute;
+  top: 400px;
 `;
 
 export default function Main() {
@@ -48,6 +74,35 @@ export default function Main() {
 
   return (
     <Container>
+      <Jumbotron>
+        <JumbotronHeading>
+          Simple Lightweight Cryptocurrency Hub
+        </JumbotronHeading>
+        <JumbotronCaption>
+          View All relevant Data in one Place.
+        </JumbotronCaption>
+        <Particles
+          width={1300}
+          params={{
+            particles: {
+              number: {
+                value: 50,
+              },
+              size: {
+                value: 3,
+              },
+            },
+            interactivity: {
+              events: {
+                onhover: {
+                  enable: true,
+                  mode: 'repulse',
+                },
+              },
+            },
+          }}
+        />
+      </Jumbotron>
       {isLoading ? (
         <LoadingCoinRender />
       ) : (

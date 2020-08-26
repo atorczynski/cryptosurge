@@ -23,7 +23,7 @@ export const FooterContentContainer = styled.div`
   height: 20px;
 `;
 
-export const HeartEmoji = styled.p`
+export const HeartEmoji = styled.span`
   font-size: 25px;
   margin: 0;
   color: red;

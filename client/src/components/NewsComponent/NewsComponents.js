@@ -1,0 +1,67 @@
+import styled from '@emotion/styled';
+
+export const NewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${(props) => props.width};
+  height: 1100px;
+  background-color: #fff;
+  box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
+  margin-top: 30px;
+  overflow: auto;
+  overflow-x: hidden;
+`;
+
+export const NewsRowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 150px;
+  margin-left: 0px;
+  cursor: pointer;
+
+  :hover {
+    background-color: #f2f2f2;
+  }
+
+  @media (max-width: 379px) {
+    height: 250px;
+  }
+`;
+
+export const NewsHeading = styled.h4`
+  width: 100%;
+  margin-left: 10px;
+
+  :hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 379px) {
+    width: 80%;
+  }
+`;
+
+export const NewsCaption = styled.p`
+  margin-left: 10px;
+`;
+
+export const ExternalLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+`;
+
+export const NewsCaptionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+export const NewsImage = styled.img`
+  display: ${(props) => props.imgDisplay};
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  margin-left: 10px;
+`;
