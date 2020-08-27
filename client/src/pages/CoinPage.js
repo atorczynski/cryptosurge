@@ -411,6 +411,7 @@ export default function CoinPage({ match }) {
               : 'flex'
           }
           width={windowSize < 1025 ? '100%' : '500px'}
+          height={'800px'}
           currentCoin={match.params.id}
           tickerTableContent={
             checkAvailability(unavailableSitesArray, match.params.id)

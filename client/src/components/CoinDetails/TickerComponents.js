@@ -7,6 +7,7 @@ export const TickerContainer = styled.div`
   background-color: #fff;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
+  overflow: auto;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
 `;
 
