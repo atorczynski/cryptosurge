@@ -11,7 +11,10 @@ export const CoinDetailsTableRow = styled.tr`
 
 export const CoinDetailsElement = styled.th`
   color: ${(props) => props.theme.text};
-  font-weight: 400;
+  font-weight: 600;
+  @media (max-width: 379px) {
+    padding-left: 20px;
+  }
 `;
 export const CoinDetailsElement2 = styled.td`
   color: ${(props) => props.theme.text};

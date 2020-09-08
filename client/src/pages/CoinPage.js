@@ -153,7 +153,7 @@ export default function CoinPage({ match }) {
         let location = await jsonData.country_code.toLowerCase();
 
         const newsResponse = await fetch(
-          `http://localhost:8080/api/news/${location}/${match.params.id}`
+          `/api/news/${location}/${match.params.id}`
         );
         const newsData = await newsResponse.json();
         setNews(newsData);
@@ -411,6 +411,7 @@ export default function CoinPage({ match }) {
               : 'flex'
           }
           width={windowSize < 1025 ? '100%' : '500px'}
+          height={'1100px'}
           currentCoin={match.params.id}
           tickerTableContent={
             checkAvailability(unavailableSitesArray, match.params.id)
