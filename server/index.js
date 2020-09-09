@@ -3,6 +3,7 @@ const path = require('path');
 //const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const https = require('https');
 
 require('dotenv').config();
 
@@ -11,21 +12,10 @@ const routes = require('./newsApi');
 const app = express();
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
-  next();
+  if (req.get('X-Forwarded-Proto') !== 'https') {
+    res.redirect('https://' + req.get('Host') + req.url);
+  } else next();
 });
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-
-//app.use(helmet());
-//app.use(limiter);
 
 app.use(morgan('combined'));
 
