@@ -12,7 +12,9 @@ const routes = require('./newsApi');
 const app = express();
 
 app.use(function (req, res, next) {
-  if (req.get('X-Forwarded-Proto') !== 'https') {
+  if (process.env.NODE_ENV === 'development') {
+    next();
+  } else if (req.get('X-Forwarded-Proto') !== 'https') {
     res.redirect('https://' + req.get('Host') + req.url);
   } else next();
 });

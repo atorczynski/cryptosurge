@@ -21,10 +21,11 @@ import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
 const InformationBar = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #fff;
+  background-color: #d3d3d3;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  border-radius: 20px;
   margin-top: 30px;
   height: auto;
   flex-wrap: wrap;
@@ -53,7 +54,7 @@ const LiveChartContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
+  background-color: #d3d3d3;
   width: 100%;
   margin-top: 30px;
   height: 500px;
@@ -64,7 +65,7 @@ const MiddleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const MiddleContainerWrapper = styled.div`
@@ -388,21 +389,20 @@ export default function CoinPage({ match }) {
         </PieChartCointainer>
       </InformationBar>
       <AdBanner />
+
+      {windowSize < 700 ? (
+        ''
+      ) : (
+        <LiveChartContainer>
+          <PieChartHeading>Live Data</PieChartHeading>
+          <TradingViewWidget
+            symbol={coin.symbol + 'USD'}
+            locale='en'
+            autosize={true}
+          />
+        </LiveChartContainer>
+      )}
       <MiddleContainer>
-        <MiddleContainerWrapper>
-          {windowSize < 700 ? (
-            ''
-          ) : (
-            <LiveChartContainer>
-              <PieChartHeading>Live Data</PieChartHeading>
-              <TradingViewWidget
-                symbol={coin.symbol + 'USD'}
-                locale='en'
-                autosize={true}
-              />
-            </LiveChartContainer>
-          )}
-        </MiddleContainerWrapper>
         <Ticker
           heading={'Market Watch'}
           display={
