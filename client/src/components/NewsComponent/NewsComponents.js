@@ -26,6 +26,7 @@ export const NewsRowContainer = styled.div`
 
   :hover {
     background-color: #f2f2f2;
+    text-decoration: underline;
   }
 
   @media (max-width: 379px) {
@@ -39,9 +40,6 @@ export const NewsHeading = styled.h4`
   width: 100%;
   margin-left: 10px;
 
-  :hover {
-    text-decoration: underline;
-  }
   @media (max-width: 379px) {
     width: 80%;
   }

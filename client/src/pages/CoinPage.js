@@ -68,12 +68,6 @@ const MiddleContainer = styled.div`
   justify-content: space-around;
 `;
 
-const MiddleContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
 export default function CoinPage({ match }) {
   const [windowSize] = useState(useWindowSize().width);
   const [locationData] = useState(null);

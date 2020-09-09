@@ -14,7 +14,6 @@ export const CoinNameContainer = styled.div`
   align-items: center;
   width: 200px;
   padding: 30px;
-  border-right: solid 2px white;
 `;
 
 export const CoinDetailsInfoContainer = styled.div`
