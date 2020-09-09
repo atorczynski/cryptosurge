@@ -5,11 +5,12 @@ export const NewsContainer = styled.div`
   flex-direction: column;
   width: ${(props) => props.width};
   height: 1100px;
-  background-color: #fff;
+  background-color: #e1e2e2;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
   margin-top: 30px;
-  overflow: auto;
+  overflow: unset;
   overflow-x: hidden;
+  border-radius: 10px;
 `;
 
 export const NewsRowContainer = styled.div`
@@ -21,6 +22,7 @@ export const NewsRowContainer = styled.div`
   height: 150px;
   margin-left: 0px;
   cursor: pointer;
+  transition: background-color 0.25s linear;
 
   :hover {
     background-color: #f2f2f2;

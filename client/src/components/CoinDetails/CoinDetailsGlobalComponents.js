@@ -29,7 +29,7 @@ export const AdBanner = styled.div`
 export const InfoContainer = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  background-color: #fff;
+  background-color: #e1e2e2;
   margin-top: 20px;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
 `;

@@ -4,7 +4,8 @@ export const TickerContainer = styled.div`
   display: ${(props) => props.display};
   flex-direction: column;
   margin-top: 30px;
-  background-color: #fff;
+  background-color: #e1e2e2;
+  border-radius: 10px;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   overflow: auto;
