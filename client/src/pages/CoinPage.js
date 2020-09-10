@@ -17,6 +17,7 @@ import Skeleton from 'react-loading-skeleton';
 import NewsComponent from '../components/NewsComponent/News';
 import NewsRow from '../components/NewsComponent/NewsRow';
 import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
+import Drawer from '../components/Drawer/Drawer';
 
 const InformationBar = styled.div`
   display: flex;
@@ -48,6 +49,7 @@ const PieChartCointainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 `;
 
 const LiveChartContainer = styled.div`
@@ -350,6 +352,11 @@ export default function CoinPage({ match }) {
               </RadarChart>
             </div>
           )}
+          {!isLoading ? (
+            <Drawer drawerContent={'pu'} buttonHeading={'Radial View'} />
+          ) : (
+            ''
+          )}
         </PieChartCointainer>
         <PieChartCointainer>
           {isLoading ? (
@@ -379,6 +386,11 @@ export default function CoinPage({ match }) {
                 showLabels
               />
             </div>
+          )}
+          {!isLoading ? (
+            <Drawer drawerContent={'hi'} buttonHeading={'Predictions'} />
+          ) : (
+            ''
           )}
         </PieChartCointainer>
       </InformationBar>

@@ -4,7 +4,6 @@ export const CoinHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: auto;
   margin-top: 40px;
 `;
 
