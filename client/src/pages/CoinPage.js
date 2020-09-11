@@ -19,6 +19,8 @@ import NewsRow from '../components/NewsComponent/NewsRow';
 import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
 import Drawer from '../components/Drawer/Drawer';
 
+import { radarChart, predictionChart } from '../Texts/coinPageTexts';
+
 const InformationBar = styled.div`
   display: flex;
   flex-direction: row;
@@ -316,7 +318,7 @@ export default function CoinPage({ match }) {
             <Skeleton width={270} height={270} circle={true} />
           ) : (
             <div>
-              <PieChartHeading>Radial View</PieChartHeading>
+              <PieChartHeading>Radar Chart</PieChartHeading>
               <RadarChart
                 data={data}
                 domains={DOMAIN}
@@ -353,7 +355,11 @@ export default function CoinPage({ match }) {
             </div>
           )}
           {!isLoading ? (
-            <Drawer drawerContent={'pu'} buttonHeading={'Radial View'} />
+            <Drawer
+              drawerContent={radarChart}
+              drawerHeading={'Radar Chart'}
+              buttonHeading={'Radar Chart'}
+            />
           ) : (
             ''
           )}
@@ -388,12 +394,21 @@ export default function CoinPage({ match }) {
             </div>
           )}
           {!isLoading ? (
-            <Drawer drawerContent={'hi'} buttonHeading={'Predictions'} />
+            <Drawer
+              drawerContent={predictionChart}
+              drawerHeading={'Prediction Chart'}
+              buttonHeading={'Predictions'}
+            />
           ) : (
             ''
           )}
         </PieChartCointainer>
       </InformationBar>
+      <Drawer
+        buttonHeading={
+          match.params.id.charAt(0).toUpperCase() + match.params.id.slice(1)
+        }
+      />
       <AdBanner />
 
       {windowSize < 700 ? (
