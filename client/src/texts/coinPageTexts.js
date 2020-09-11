@@ -21,6 +21,6 @@ export const predictionChart = (
       Shows community-driven predictions on how the coin will progress on the
       markets.
     </p>
-    <br /> <br /> <b>THIS IS NO MARKET ADVICE</b>
+    <br /> <br /> <b>THIS IS NO FINANCIAL ADVICE</b>
   </React.Fragment>
 );
