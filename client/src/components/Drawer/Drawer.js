@@ -5,6 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const CloaseIconStyled = styled(CloseIcon)`
   cursor: pointer;
+  margin-top: 20px;
 `;
 
 const buttonStyle = {
@@ -21,12 +22,14 @@ const DrawerConatiner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  background-color: #d3d3d3;
   align-content: center;
   align-items: center;
-  background-color: inherit;
+  border-radius: 25px;
   width: auto;
   height: auto;
   margin-bottom: 10px;
+  padding: ${(props) => props.padding};
 
   @media (max-width: 379px) {
     margin-left: 10px;
@@ -39,6 +42,7 @@ export default function Drawer({
   buttonHeading,
   drawerContent,
   drawerHeading,
+  padding,
 }) {
   const [isOpen, setOpen] = React.useState(false);
 
@@ -58,7 +62,7 @@ export default function Drawer({
         Read more about {buttonHeading}
       </Button>
       <Collapse in={isOpen}>
-        <DrawerConatiner>
+        <DrawerConatiner padding={padding}>
           <DrawerHeading>{drawerHeading}</DrawerHeading>
           {drawerContent}
           <CloaseIconStyled

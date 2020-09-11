@@ -75,6 +75,7 @@ const MiddleContainer = styled.div`
 export default function CoinPage({ match }) {
   const [windowSize] = useState(useWindowSize().width);
   const [locationData] = useState(null);
+  const [description, setDescription] = useState('');
   const [news, setNews] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [coin, setCoin] = useState({
@@ -88,6 +89,7 @@ export default function CoinPage({ match }) {
     public_interest_score: 10,
     market_data: { ath: 0, atl: 0, current_price: {}, price_change_24h: {} },
     categories: {},
+    description: {},
     tickers: [],
     links: {
       homepage: [],
@@ -137,6 +139,8 @@ export default function CoinPage({ match }) {
     return windowSize;
   }
 
+  const doc = new DOMParser();
+
   useEffect(() => {
     async function getData() {
       try {
@@ -145,7 +149,14 @@ export default function CoinPage({ match }) {
           `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
         );
         const data = await response.json();
+
         setCoin(data);
+
+        const text = data.description.en;
+
+        console.log(text);
+
+        setDescription(text);
 
         const locationData = await fetch('https://ipapi.co/json');
         const jsonData = await locationData.json();
@@ -176,6 +187,10 @@ export default function CoinPage({ match }) {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function createMarkup(body) {
+    return { __html: body };
   }
 
   const checkAvailable = (target) => {
@@ -405,8 +420,15 @@ export default function CoinPage({ match }) {
         </PieChartCointainer>
       </InformationBar>
       <Drawer
+        padding={'30px'}
         buttonHeading={
           match.params.id.charAt(0).toUpperCase() + match.params.id.slice(1)
+        }
+        drawerHeading={
+          match.params.id.charAt(0).toUpperCase() + match.params.id.slice(1)
+        }
+        drawerContent={
+          <div dangerouslySetInnerHTML={{ __html: description }}></div>
         }
       />
       <AdBanner />
