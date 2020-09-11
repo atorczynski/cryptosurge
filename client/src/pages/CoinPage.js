@@ -421,12 +421,8 @@ export default function CoinPage({ match }) {
       </InformationBar>
       <Drawer
         padding={'30px'}
-        buttonHeading={
-          match.params.id.charAt(0).toUpperCase() + match.params.id.slice(1)
-        }
-        drawerHeading={
-          match.params.id.charAt(0).toUpperCase() + match.params.id.slice(1)
-        }
+        buttonHeading={coin.name}
+        drawerHeading={coin.name}
         drawerContent={
           <div dangerouslySetInnerHTML={{ __html: description }}></div>
         }
