@@ -18,9 +18,9 @@ export const radarChart = (
 export const predictionChart = (
   <React.Fragment>
     <p>
-      Shows community-driven predictions on how the coin will progess on the
+      Shows community driven-predictions on how the coin will progress on the
       markets.
-    </p
+    </p>
     <br /> <br /> <b>THIS IS NO MARKET ADVICE</b>
   </React.Fragment>
 );
