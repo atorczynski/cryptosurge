@@ -19,7 +19,7 @@ import NewsRow from '../components/NewsComponent/NewsRow';
 import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
 import Drawer from '../components/Drawer/Drawer';
 
-import { radarChart, predictionChart } from '../Texts/coinPageTexts';
+import { radarChart, predictionChart } from '../texts/coinPageTexts';
 
 const InformationBar = styled.div`
   display: flex;
