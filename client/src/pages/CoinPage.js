@@ -76,7 +76,7 @@ export default function CoinPage({ match }) {
   const [windowSize] = useState(useWindowSize().width);
   const [locationData] = useState(null);
   const [description, setDescription] = useState('');
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState();
   const [isLoading, setLoading] = useState(true);
   const [coin, setCoin] = useState({
     image: {},
@@ -159,14 +159,19 @@ export default function CoinPage({ match }) {
         setDescription(text);
 
         const locationData = await fetch('https://ipapi.co/json');
-        const jsonData = await locationData.json();
-        let location = await jsonData.country_code.toLowerCase();
+        // const jsonData = await locationData.json();
+        // let location = await jsonData.country_code.toLowerCase();
 
-        const newsResponse = await fetch(
-          `/api/news/${location}/${match.params.id}`
-        );
+        const newsResponse = await fetch(`/api/news/en/${match.params.id}`);
         const newsData = await newsResponse.json();
-        setNews(newsData);
+
+        console.log(newsData.status);
+
+        if (newsData) {
+          setNews(newsData.data);
+        } else {
+          return;
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -184,13 +189,10 @@ export default function CoinPage({ match }) {
       );
       const data = await response.json();
       setMarketData(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
-  }
-
-  function createMarkup(body) {
-    return { __html: body };
   }
 
   const checkAvailable = (target) => {
@@ -240,6 +242,7 @@ export default function CoinPage({ match }) {
     'true-usd',
     'husd',
     'enjincoin',
+    'uma',
   ];
 
   const animationData = {
@@ -453,7 +456,8 @@ export default function CoinPage({ match }) {
           height={'1100px'}
           currentCoin={match.params.id}
           tickerTableContent={
-            checkAvailability(unavailableSitesArray, match.params.id)
+            //checkAvailability(unavailableSitesArray, match.params.id)
+            marketData.error === match.params.id + ' not found'
               ? ''
               : marketData.data.map((ticker) => {
                   if (
@@ -479,27 +483,33 @@ export default function CoinPage({ match }) {
                 })
           }
         />
-        <NewsComponent width={windowSize < 1025 ? '100%' : '1000px'}>
-          {isLoading ? (
-            <NewsLoadingRender />
-          ) : (
-            news.map((post) => {
-              return (
-                <aside key={post._id}>
-                  <NewsRow
-                    key={post._id}
-                    newsRedirect={post.url}
-                    newsHeading={post.title}
-                    imgDisplay={!post.thumbnail ? 'none' : 'block'}
-                    newsImageSrc={post.thumbnail}
-                    newsText={post.description}
-                  />
-                  <Underline />
-                </aside>
-              );
-            })
-          )}
-        </NewsComponent>
+        {news ? (
+          <NewsComponent width={windowSize < 1025 ? '100%' : '1000px'}>
+            {isLoading ? (
+              <NewsLoadingRender />
+            ) : (
+              news.map((post) => {
+                if (post) {
+                  return (
+                    <aside key={post._id}>
+                      <NewsRow
+                        key={post._id}
+                        newsRedirect={post.url}
+                        newsHeading={post.title}
+                        imgDisplay={!post.thumbnail ? 'none' : 'block'}
+                        newsImageSrc={post.thumbnail}
+                        newsText={post.description}
+                      />
+                      <Underline />
+                    </aside>
+                  );
+                }
+              })
+            )}
+          </NewsComponent>
+        ) : (
+          ''
+        )}
       </MiddleContainer>
     </ResponsiveWrapper>
   );
