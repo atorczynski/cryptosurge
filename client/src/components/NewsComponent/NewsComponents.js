@@ -39,6 +39,7 @@ export const NewsRowContainer = styled.div`
 export const NewsHeading = styled.h4`
   width: 100%;
   margin-left: 10px;
+  text-align: ${(props) => props.textAlign};
 
   @media (max-width: 379px) {
     width: 80%;
