@@ -19,8 +19,8 @@ export const NewsRowContainer = styled.div`
   align-items: center;
   align-content: center;
   width: 100%;
-  height: 150px;
   margin-left: 0px;
+  padding: 0 20px 0 20px;
   cursor: pointer;
   transition: background-color 0.25s linear;
 
@@ -34,6 +34,17 @@ export const NewsRowContainer = styled.div`
     align-content: center;
     justify-content: center;
   }
+`;
+
+export const NewsInformationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: inherit;
+`;
+
+export const NewsInformationText = styled.h4`
+  opacity: 0.4;
 `;
 
 export const NewsHeading = styled.h4`
@@ -66,5 +77,4 @@ export const NewsImage = styled.img`
   width: 100px;
   height: 100px;
   margin-right: 10px;
-  margin-left: 10px;
 `;

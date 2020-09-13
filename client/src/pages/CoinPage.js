@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import moment from 'moment';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
@@ -139,8 +140,6 @@ export default function CoinPage({ match }) {
     return windowSize;
   }
 
-  const doc = new DOMParser();
-
   useEffect(() => {
     async function getData() {
       try {
@@ -211,6 +210,18 @@ export default function CoinPage({ match }) {
       return 'flex';
     }
   };
+
+  function calcReadTime(wordCount) {
+    const wordsPerMinute = 200;
+    const minutes = wordCount / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+
+    if (readTime > 1) {
+      return `${readTime} minutes`;
+    } else {
+      return `${readTime} minute`;
+    }
+  }
 
   const checkIfNull = (target) => {
     if (target === null) {
@@ -490,6 +501,7 @@ export default function CoinPage({ match }) {
             ) : (
               news.map((post) => {
                 if (post) {
+                  const postDate = moment(post.publishedAt);
                   return (
                     <aside key={post._id}>
                       <NewsRow
@@ -499,6 +511,10 @@ export default function CoinPage({ match }) {
                         imgDisplay={!post.thumbnail ? 'none' : 'block'}
                         newsImageSrc={post.thumbnail}
                         newsText={post.description}
+                        newsDate={postDate.format('MMMM Do YYYY, h:mm:ss a')}
+                        newsSource={post.sourceDomain}
+                        newsHotness={post.hotness.toFixed(2)}
+                        readTime={calcReadTime(post.words)}
                       />
                       <Underline />
                     </aside>
