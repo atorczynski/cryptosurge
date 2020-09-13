@@ -30,7 +30,7 @@ export default function MenuAppBar() {
       <AppBar style={style}>
         <Toolbar>
           <Typography variant='h6' className={classes.title} align={'center'}>
-            <HeadingElement href={'/'}>Cryptosurge</HeadingElement>
+            <HeadingElement href={'/'}>Cryptodash.io</HeadingElement>
           </Typography>
         </Toolbar>
       </AppBar>
