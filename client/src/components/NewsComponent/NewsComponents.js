@@ -33,6 +33,7 @@ export const NewsRowContainer = styled.div`
     height: 250px;
     align-content: center;
     justify-content: center;
+    overflow: hidden;
   }
 `;
 
