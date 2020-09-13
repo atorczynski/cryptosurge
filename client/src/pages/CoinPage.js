@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import moment from 'moment';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
@@ -138,8 +139,6 @@ export default function CoinPage({ match }) {
     }, []);
     return windowSize;
   }
-
-  const doc = new DOMParser();
 
   useEffect(() => {
     async function getData() {
@@ -490,6 +489,7 @@ export default function CoinPage({ match }) {
             ) : (
               news.map((post) => {
                 if (post) {
+                  const postDate = moment(post.publishedAt);
                   return (
                     <aside key={post._id}>
                       <NewsRow
@@ -499,6 +499,9 @@ export default function CoinPage({ match }) {
                         imgDisplay={!post.thumbnail ? 'none' : 'block'}
                         newsImageSrc={post.thumbnail}
                         newsText={post.description}
+                        newsDate={postDate.format('MMMM Do YYYY, h:mm:ss a')}
+                        newsSource={post.sourceDomain}
+                        newsHotness={post.hotness.toFixed(2)}
                       />
                       <Underline />
                     </aside>
