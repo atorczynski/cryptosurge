@@ -478,7 +478,7 @@ export default function CoinPage({ match }) {
                       </CoinDetailsTableRow>
                     );
                   } else {
-                    return '';
+                    return;
                   }
                 })
           }
