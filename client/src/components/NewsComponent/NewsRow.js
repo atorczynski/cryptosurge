@@ -34,6 +34,7 @@ export default function NewsRow({
   newsSource,
   newsDate,
   newsHotness,
+  readTime,
 }) {
   return (
     <ExternalLink href={newsRedirect}>
@@ -56,6 +57,7 @@ export default function NewsRow({
         </NewsInformationContainer>
         <NewsInformationContainer>
           <NewsInformationText>Hotness: {newsHotness}</NewsInformationText>
+          <NewsInformationText>Read Time: {readTime}</NewsInformationText>
         </NewsInformationContainer>
       </NewsRowContainer>
     </ExternalLink>
