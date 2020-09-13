@@ -211,6 +211,18 @@ export default function CoinPage({ match }) {
     }
   };
 
+  function calcReadTime(wordCount) {
+    const wordsPerMinute = 200;
+    const minutes = wordCount / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+
+    if (readTime > 1) {
+      return `${readTime} minutes`;
+    } else {
+      return `${readTime} minute`;
+    }
+  }
+
   const checkIfNull = (target) => {
     if (target === null) {
       return '-';
@@ -502,6 +514,7 @@ export default function CoinPage({ match }) {
                         newsDate={postDate.format('MMMM Do YYYY, h:mm:ss a')}
                         newsSource={post.sourceDomain}
                         newsHotness={post.hotness.toFixed(2)}
+                        readTime={calcReadTime(post.words)}
                       />
                       <Underline />
                     </aside>
