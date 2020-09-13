@@ -68,7 +68,7 @@ export const NewsHeading = styled.h4`
 `;
 
 export const NewsCaption = styled.p`
-  margin: 0 5px;
+  margin: 0;
 `;
 
 export const ExternalLink = styled.a`
