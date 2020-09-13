@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
+import moment from 'moment';
 import { RadialChart, RadarChart, CircularGridLines } from 'react-vis';
 import TradingViewWidget from 'react-tradingview-widget';
 import CoinDetailsRefs from '../components/CoinDetailsRefs';
@@ -17,14 +18,18 @@ import Skeleton from 'react-loading-skeleton';
 import NewsComponent from '../components/NewsComponent/News';
 import NewsRow from '../components/NewsComponent/NewsRow';
 import NewsLoadingRender from '../components/NewsComponent/NewsLoadingRender';
+import Drawer from '../components/Drawer/Drawer';
+
+import { radarChart, predictionChart } from '../texts/coinPageTexts';
 
 const InformationBar = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: #fff;
+  background-color: #d3d3d3;
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  border-radius: 20px;
   margin-top: 30px;
   height: auto;
   flex-wrap: wrap;
@@ -47,13 +52,14 @@ const PieChartCointainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 `;
 
 const LiveChartContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
+  background-color: #d3d3d3;
   width: 100%;
   margin-top: 30px;
   height: 500px;
@@ -64,19 +70,14 @@ const MiddleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
-`;
-
-const MiddleContainerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  justify-content: space-around;
 `;
 
 export default function CoinPage({ match }) {
   const [windowSize] = useState(useWindowSize().width);
   const [locationData] = useState(null);
-  const [news, setNews] = useState([]);
+  const [description, setDescription] = useState('');
+  const [news, setNews] = useState();
   const [isLoading, setLoading] = useState(true);
   const [coin, setCoin] = useState({
     image: {},
@@ -89,6 +90,7 @@ export default function CoinPage({ match }) {
     public_interest_score: 10,
     market_data: { ath: 0, atl: 0, current_price: {}, price_change_24h: {} },
     categories: {},
+    description: {},
     tickers: [],
     links: {
       homepage: [],
@@ -146,17 +148,29 @@ export default function CoinPage({ match }) {
           `https://api.coingecko.com/api/v3/coins/${checkLink(match.params.id)}`
         );
         const data = await response.json();
+
         setCoin(data);
 
-        const locationData = await fetch('https://ipapi.co/json');
-        const jsonData = await locationData.json();
-        let location = await jsonData.country_code.toLowerCase();
+        const text = data.description.en;
 
-        const newsResponse = await fetch(
-          `/api/news/${location}/${match.params.id}`
-        );
+        console.log(text);
+
+        setDescription(text);
+
+        const locationData = await fetch('https://ipapi.co/json');
+        // const jsonData = await locationData.json();
+        // let location = await jsonData.country_code.toLowerCase();
+
+        const newsResponse = await fetch(`/api/news/en/${match.params.id}`);
         const newsData = await newsResponse.json();
-        setNews(newsData);
+
+        console.log(newsData.status);
+
+        if (newsData) {
+          setNews(newsData.data);
+        } else {
+          return;
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -174,6 +188,7 @@ export default function CoinPage({ match }) {
       );
       const data = await response.json();
       setMarketData(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -195,6 +210,18 @@ export default function CoinPage({ match }) {
       return 'flex';
     }
   };
+
+  function calcReadTime(wordCount) {
+    const wordsPerMinute = 200;
+    const minutes = wordCount / wordsPerMinute;
+    const readTime = Math.ceil(minutes);
+
+    if (readTime > 1) {
+      return `${readTime} minutes`;
+    } else {
+      return `${readTime} minute`;
+    }
+  }
 
   const checkIfNull = (target) => {
     if (target === null) {
@@ -226,6 +253,7 @@ export default function CoinPage({ match }) {
     'true-usd',
     'husd',
     'enjincoin',
+    'uma',
   ];
 
   const animationData = {
@@ -319,7 +347,7 @@ export default function CoinPage({ match }) {
             <Skeleton width={270} height={270} circle={true} />
           ) : (
             <div>
-              <PieChartHeading>Radial View</PieChartHeading>
+              <PieChartHeading>Radar Chart</PieChartHeading>
               <RadarChart
                 data={data}
                 domains={DOMAIN}
@@ -355,6 +383,15 @@ export default function CoinPage({ match }) {
               </RadarChart>
             </div>
           )}
+          {!isLoading ? (
+            <Drawer
+              drawerContent={radarChart}
+              drawerHeading={'Radar Chart'}
+              buttonHeading={'Radar Chart'}
+            />
+          ) : (
+            ''
+          )}
         </PieChartCointainer>
         <PieChartCointainer>
           {isLoading ? (
@@ -385,24 +422,40 @@ export default function CoinPage({ match }) {
               />
             </div>
           )}
+          {!isLoading ? (
+            <Drawer
+              drawerContent={predictionChart}
+              drawerHeading={'Prediction Chart'}
+              buttonHeading={'Predictions'}
+            />
+          ) : (
+            ''
+          )}
         </PieChartCointainer>
       </InformationBar>
+      <Drawer
+        padding={'30px'}
+        buttonHeading={coin.name}
+        drawerHeading={coin.name}
+        drawerContent={
+          <div dangerouslySetInnerHTML={{ __html: description }}></div>
+        }
+      />
       <AdBanner />
+
+      {windowSize < 700 ? (
+        ''
+      ) : (
+        <LiveChartContainer>
+          <PieChartHeading>Live Data</PieChartHeading>
+          <TradingViewWidget
+            symbol={coin.symbol + 'USD'}
+            locale='en'
+            autosize={true}
+          />
+        </LiveChartContainer>
+      )}
       <MiddleContainer>
-        <MiddleContainerWrapper>
-          {windowSize < 700 ? (
-            ''
-          ) : (
-            <LiveChartContainer>
-              <PieChartHeading>Live Data</PieChartHeading>
-              <TradingViewWidget
-                symbol={coin.symbol + 'USD'}
-                locale='en'
-                autosize={true}
-              />
-            </LiveChartContainer>
-          )}
-        </MiddleContainerWrapper>
         <Ticker
           heading={'Market Watch'}
           display={
@@ -414,7 +467,8 @@ export default function CoinPage({ match }) {
           height={'1100px'}
           currentCoin={match.params.id}
           tickerTableContent={
-            checkAvailability(unavailableSitesArray, match.params.id)
+            //checkAvailability(unavailableSitesArray, match.params.id)
+            marketData.error === match.params.id + ' not found'
               ? ''
               : marketData.data.map((ticker) => {
                   if (
@@ -435,32 +489,43 @@ export default function CoinPage({ match }) {
                       </CoinDetailsTableRow>
                     );
                   } else {
-                    return '';
+                    return;
                   }
                 })
           }
         />
-        <NewsComponent width={windowSize < 1025 ? '100%' : '1000px'}>
-          {isLoading ? (
-            <NewsLoadingRender />
-          ) : (
-            news.map((post) => {
-              return (
-                <aside key={post._id}>
-                  <NewsRow
-                    key={post._id}
-                    newsRedirect={post.url}
-                    newsHeading={post.title}
-                    imgDisplay={!post.thumbnail ? 'none' : 'block'}
-                    newsImageSrc={post.thumbnail}
-                    newsText={post.description}
-                  />
-                  <Underline />
-                </aside>
-              );
-            })
-          )}
-        </NewsComponent>
+        {news ? (
+          <NewsComponent width={windowSize < 1025 ? '100%' : '1000px'}>
+            {isLoading ? (
+              <NewsLoadingRender />
+            ) : (
+              news.map((post) => {
+                if (post) {
+                  const postDate = moment(post.publishedAt);
+                  return (
+                    <aside key={post._id}>
+                      <NewsRow
+                        key={post._id}
+                        newsRedirect={post.url}
+                        newsHeading={post.title}
+                        imgDisplay={!post.thumbnail ? 'none' : 'block'}
+                        newsImageSrc={post.thumbnail}
+                        newsText={post.description}
+                        newsDate={postDate.format('MMMM Do YYYY, h:mm:ss a')}
+                        newsSource={post.sourceDomain}
+                        newsHotness={post.hotness.toFixed(2)}
+                        readTime={calcReadTime(post.words)}
+                      />
+                      <Underline />
+                    </aside>
+                  );
+                }
+              })
+            )}
+          </NewsComponent>
+        ) : (
+          ''
+        )}
       </MiddleContainer>
     </ResponsiveWrapper>
   );

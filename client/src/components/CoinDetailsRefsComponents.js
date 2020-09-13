@@ -4,7 +4,6 @@ export const CoinHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: auto;
   margin-top: 40px;
 `;
 
@@ -14,7 +13,6 @@ export const CoinNameContainer = styled.div`
   align-items: center;
   width: 200px;
   padding: 30px;
-  border-right: solid 2px white;
 `;
 
 export const CoinDetailsInfoContainer = styled.div`

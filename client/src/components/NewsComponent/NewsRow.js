@@ -7,6 +7,8 @@ import {
   NewsCaptionContainer,
   NewsCaption,
   ExternalLink,
+  NewsInformationText,
+  NewsInformationContainer,
 } from './NewsComponents';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
@@ -29,6 +31,10 @@ export default function NewsRow({
   newsText,
   imgDisplay,
   newsRedirect,
+  newsSource,
+  newsDate,
+  newsHotness,
+  readTime,
 }) {
   return (
     <ExternalLink href={newsRedirect}>
@@ -45,6 +51,14 @@ export default function NewsRow({
           )}
           <NewsCaption>{newsText}</NewsCaption>
         </NewsCaptionContainer>
+        <NewsInformationContainer>
+          <NewsInformationText>{newsSource}</NewsInformationText>
+          <NewsInformationText>{newsDate}</NewsInformationText>
+        </NewsInformationContainer>
+        <NewsInformationContainer>
+          <NewsInformationText>Hotness: {newsHotness}</NewsInformationText>
+          <NewsInformationText>Read Time: {readTime}</NewsInformationText>
+        </NewsInformationContainer>
       </NewsRowContainer>
     </ExternalLink>
   );
