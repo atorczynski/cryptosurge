@@ -8,9 +8,13 @@ export const NewsContainer = styled.div`
   background-color: #e1e2e2;
   box-shadow: 0px 9px 15px -5px rgba(0, 0, 0, 0.75);
   margin-top: 30px;
-  overflow: unset;
+  overflow: auto;
   overflow-x: hidden;
   border-radius: 10px;
+
+  @media (max-width: 379px) {
+    overflow: hidden;
+  }
 `;
 
 export const NewsRowContainer = styled.div`
