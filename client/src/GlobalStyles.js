@@ -19,6 +19,10 @@ function GlobalStyles() {
           background-color: ${theme.background};
           font-family: 'Roboto', sans-serif;
         }
+        a {
+          text-decoration: underline;
+          color: #64abf8;
+        }
       `}
     />
   );
