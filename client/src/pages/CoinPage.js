@@ -153,18 +153,10 @@ export default function CoinPage({ match }) {
 
         const text = data.description.en;
 
-        console.log(text);
-
         setDescription(text);
-
-        const locationData = await fetch('https://ipapi.co/json');
-        // const jsonData = await locationData.json();
-        // let location = await jsonData.country_code.toLowerCase();
 
         const newsResponse = await fetch(`/api/news/en/${match.params.id}`);
         const newsData = await newsResponse.json();
-
-        console.log(newsData.status);
 
         if (newsData) {
           setNews(newsData.data);
@@ -438,7 +430,7 @@ export default function CoinPage({ match }) {
         buttonHeading={coin.name}
         drawerHeading={coin.name}
         drawerContent={
-          <div dangerouslySetInnerHTML={{ __html: description }}></div>
+          <p dangerouslySetInnerHTML={{ __html: description }}></p>
         }
       />
       <AdBanner />
