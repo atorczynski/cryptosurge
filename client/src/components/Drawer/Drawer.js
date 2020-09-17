@@ -71,7 +71,7 @@ export default function Drawer({
       <Collapse in={isOpen}>
         <DrawerConatiner padding={padding}>
           <DrawerHeading>{drawerHeading}</DrawerHeading>
-          <DrawerContentText>{drawerContent}</DrawerContentText>
+          <div>{drawerContent}</div>
           <CloaseIconStyled
             onClick={() => {
               handleClick();
