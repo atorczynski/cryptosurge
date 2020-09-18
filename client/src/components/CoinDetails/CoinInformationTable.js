@@ -5,7 +5,7 @@ import {
   CoinDetailsTableRow,
   CoinDetailsElement,
 } from './CoinInformationTableComponents';
-import { CoinDetailsHeading } from './CoinDetailsGlobalComponents';
+import { CoinDetailsHeading, Underline } from './CoinDetailsGlobalComponents';
 
 const InformationContainer = styled.div``;
 
@@ -29,6 +29,7 @@ export default function CoinInformationTable({
   return (
     <InformationContainer>
       <CoinDetailsHeading>{tableHeading}</CoinDetailsHeading>
+      <Underline />
       <CoinDetailsTable>
         <tbody>
           <CoinDetailsTableRow>
