@@ -70,7 +70,7 @@ const MiddleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 export default function CoinPage({ match }) {
@@ -340,6 +340,7 @@ export default function CoinPage({ match }) {
           ) : (
             <div>
               <PieChartHeading>Radar Chart</PieChartHeading>
+              <Underline />
               <RadarChart
                 data={data}
                 domains={DOMAIN}
@@ -392,6 +393,7 @@ export default function CoinPage({ match }) {
             <div>
               {' '}
               <PieChartHeading>Community Prediction</PieChartHeading>
+              <Underline />
               <RadialChart
                 data={[
                   {
