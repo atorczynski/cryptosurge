@@ -4,6 +4,11 @@ export const CoinDetailsTableRow = styled.tr`
   display: table-row;
   border-bottom: 1px solid rgba(34, 36, 38, 0.15);
   transition: all 0.25s ease-in;
+
+  :nth-child(odd) {
+    background-color: #c9c9c9;
+  }
+
   :hover {
     background-color: #f2f2f2;
   }
