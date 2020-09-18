@@ -7,13 +7,16 @@ import {
   FooterContentContainer,
   FooterLinkExternal,
 } from './FooterComponents';
+import Legal from '../../pages/Legal';
 
 export default function Footer() {
   return (
     <FooterContainer>
       <FooterContentContainer>
         <FooterText>Made with </FooterText>
-        <HeartEmoji role={'img'} aria-label={"Heath Emoji"}>❤️</HeartEmoji>
+        <HeartEmoji role={'img'} aria-label={'Heath Emoji'}>
+          ❤️
+        </HeartEmoji>
         <FooterText> by </FooterText>
         <FooterLinkExternal href={'https://github.com/atorczynski'}>
           Artur Torczynski
@@ -34,7 +37,7 @@ export default function Footer() {
         </FooterLinkExternal>
       </FooterContentContainer>
       <FooterContentContainer>
-        <FooterLink to={'/disclaimer'}>Privacy & Cookies</FooterLink>
+        <FooterLink to={'/legal'}>Privacy & Cookies</FooterLink>
       </FooterContentContainer>
     </FooterContainer>
   );

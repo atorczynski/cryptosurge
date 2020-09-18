@@ -9,6 +9,8 @@ import CoinPage from './pages/CoinPage';
 import { ContentContainer } from './components/BodyHelpers';
 
 import Footer from './components/Footer/Footer';
+import Legal from './pages/Legal';
+import CookieConsent from 'react-cookie-consent';
 
 function useWindowSize() {
   const isClient = typeof window === 'object';
@@ -38,6 +40,12 @@ function useWindowSize() {
 
 function App() {
   const [windowSize] = React.useState(useWindowSize().width);
+  const [cookieConsent, setCookieConsent] = React.useState(
+    localStorage.getItem('cookieConsent')
+  );
+
+  React.useEffect(() => {}, []);
+
   return (
     <ThemeProvider theme={primary}>
       <GlobalStyles />
@@ -49,9 +57,30 @@ function App() {
               <Main />
             </Route>
             <Route path={'/coins/:id'} component={CoinPage} />
+            <Route path={'/legal'}>
+              <Legal />
+            </Route>
           </Switch>
         </ContentContainer>
         <Footer />
+        {cookieConsent ? (
+          ''
+        ) : (
+          <CookieConsent
+            cookieName={'cookieConsent'}
+            onAccept={() => {
+              localStorage.setItem('cookieConsent', true);
+              setCookieConsent(true);
+            }}
+          >
+            We use cookies to offer you a better browsing experience, analyze
+            site traffic, personalize content, and serve targeted
+            advertisements. Read about how we use cookies and how you can
+            control them on our{' '}
+            <a href={'http://localhost:3000/legal'}>Privacy Policy</a>. If you
+            continue to use this site, you consent to our use of cookies.
+          </CookieConsent>
+        )}
       </Router>
     </ThemeProvider>
   );

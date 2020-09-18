@@ -14,7 +14,6 @@ export const Underline = styled.hr`
   text-align: left;
   margin-left: 0;
   margin-bottom: 10px;
-  margin-top: 10px;
 `;
 
 export const AdBanner = styled.div`
