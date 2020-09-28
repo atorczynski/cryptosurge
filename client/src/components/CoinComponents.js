@@ -1,25 +1,41 @@
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 
-export const CoinContainer = styled(Link)`
+export const CoinContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 180px;
+  height: auto;
   width: 150px;
   background: white;
   border-radius: 25px;
-  margin: 20px;
+  margin: 15px;
   color: inherit;
 
   text-decoration: none;
 
-  transition: all 0.5s ease;
-
-  &:hover {
-    background: lightgray;
-    color: ${(props) => props.theme.action};
+  &:focus,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
   }
+
+  @media (max-width: 379px) {
+    width: 150px;
+  }
+`;
+export const CoinContainerLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: 150px;
+  background: white;
+  border-radius: 25px;
+  color: inherit;
+
+  text-decoration: none;
 
   &:focus,
   &:visited,
@@ -45,11 +61,15 @@ export const CoinName = styled.h2`
 
 export const CoinHeader = styled.div`
   width: 100%;
-  height: 100px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 379px) {
+    height: 50px;
+  }
 `;
 
 export const CoinLogo = styled.img`
@@ -60,7 +80,7 @@ export const CoinDetailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 100%;
+  height: 70%;
   width: 100%;
   background-color: inherit;
 `;
@@ -86,9 +106,8 @@ export const CoinDetailPriceContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 70px;
+  height: 40px;
   border-radius: 0 0 25px 25px;
-  background-color: lightgrey;
 
   justify-content: center;
   align-items: center;
