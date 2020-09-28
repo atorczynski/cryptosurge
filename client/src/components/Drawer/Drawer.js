@@ -38,13 +38,6 @@ const DrawerConatiner = styled.div`
 
 const DrawerHeading = styled.h3``;
 
-const DrawerContentText = styled.p`
-  font-size: 16px;
-  @media (max-width: 379px) {
-    font-size: 12px;
-  }
-`;
-
 export default function Drawer({
   buttonHeading,
   drawerContent,
@@ -62,7 +55,6 @@ export default function Drawer({
       <Button
         onClick={() => {
           handleClick();
-          console.log(isOpen);
         }}
         style={buttonStyle}
       >
@@ -71,7 +63,9 @@ export default function Drawer({
       <Collapse in={isOpen}>
         <DrawerConatiner padding={padding}>
           <DrawerHeading>{drawerHeading}</DrawerHeading>
-          <div>{drawerContent}</div>
+          <div>
+            <>{drawerContent}</>
+          </div>
           <CloaseIconStyled
             onClick={() => {
               handleClick();

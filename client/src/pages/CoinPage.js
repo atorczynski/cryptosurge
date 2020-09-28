@@ -70,7 +70,14 @@ const MiddleContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+`;
+
+const DrawerContentText = styled.p`
+  font-size: 16px;
+  @media (max-width: 379px) {
+    font-size: 12px;
+  }
 `;
 
 export default function CoinPage({ match }) {
@@ -340,6 +347,7 @@ export default function CoinPage({ match }) {
           ) : (
             <div>
               <PieChartHeading>Radar Chart</PieChartHeading>
+              <Underline />
               <RadarChart
                 data={data}
                 domains={DOMAIN}
@@ -392,6 +400,7 @@ export default function CoinPage({ match }) {
             <div>
               {' '}
               <PieChartHeading>Community Prediction</PieChartHeading>
+              <Underline />
               <RadialChart
                 data={[
                   {
@@ -430,7 +439,9 @@ export default function CoinPage({ match }) {
         buttonHeading={coin.name}
         drawerHeading={coin.name}
         drawerContent={
-          <p dangerouslySetInnerHTML={{ __html: description }}></p>
+          <DrawerContentText
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></DrawerContentText>
         }
       />
       <AdBanner />

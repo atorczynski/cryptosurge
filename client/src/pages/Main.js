@@ -9,6 +9,7 @@ import LoadingCoinRender from '../components/LoadingCoinRender';
 const Container = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
 
@@ -28,7 +29,7 @@ const Jumbotron = styled.div`
   height: 400px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 25px;
-  background-color: lightgrey;
+  background-color: #b1adc7;
   overflow: hidden;
   margin-top: 20px;
 `;
@@ -67,10 +68,23 @@ export default function Main() {
       setLoading(false);
     }
   }
+  let favoriteCoins = localStorage.getItem('FavoriteCoins') || [];
 
   useEffect(() => {
     getData();
   }, []);
+
+  function saveFavorite(target) {
+    favoriteCoins = localStorage.getItem('FavoriteCoins') || [];
+
+    if (!favoriteCoins.includes(target)) {
+      favoriteCoins = JSON.parse(localStorage.getItem('FavoriteCoins')) || [];
+      favoriteCoins.push(target);
+      localStorage.setItem('FavoriteCoins', JSON.stringify(favoriteCoins));
+    } else {
+      return;
+    }
+  }
 
   return (
     <Container>
@@ -131,6 +145,12 @@ export default function Main() {
               coin.market_data.price_change_percentage_30d
             )}
             currentPrice={coin.market_data.current_price.usd}
+            onClick={() => {
+              saveFavorite(coin.id);
+              console.log(favoriteCoins.includes(coin.id));
+              console.log(coin.name);
+            }}
+            isFavoriteCoin={favoriteCoins.includes(coin.id)}
           />
         ))
       )}
