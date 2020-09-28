@@ -73,6 +73,13 @@ const MiddleContainer = styled.div`
   justify-content: space-between;
 `;
 
+const DrawerContentText = styled.p`
+  font-size: 16px;
+  @media (max-width: 379px) {
+    font-size: 12px;
+  }
+`;
+
 export default function CoinPage({ match }) {
   const [windowSize] = useState(useWindowSize().width);
   const [locationData] = useState(null);
@@ -432,7 +439,9 @@ export default function CoinPage({ match }) {
         buttonHeading={coin.name}
         drawerHeading={coin.name}
         drawerContent={
-          <p dangerouslySetInnerHTML={{ __html: description }}></p>
+          <DrawerContentText
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></DrawerContentText>
         }
       />
       <AdBanner />
