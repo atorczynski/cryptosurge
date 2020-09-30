@@ -47,6 +47,9 @@ const JumbotronCaption = styled.h4`
 export default function Main() {
   const [coins, setCoins] = React.useState([]);
   const [isLoading, setLoading] = React.useState();
+  const [favoriteCoinsArray, setFavoriteCoinsArray] = React.useState(
+    localStorage.getItem('FavoriteCoins') || []
+  );
 
   const createTrendColor = (currentChange) => {
     if (currentChange.toString().charAt(0) === '-') {
@@ -76,15 +79,26 @@ export default function Main() {
 
   function saveFavorite(target) {
     favoriteCoins = localStorage.getItem('FavoriteCoins') || [];
+    favoriteCoins = JSON.parse(localStorage.getItem('FavoriteCoins')) || [];
 
     if (!favoriteCoins.includes(target)) {
-      favoriteCoins = JSON.parse(localStorage.getItem('FavoriteCoins')) || [];
       favoriteCoins.push(target);
       localStorage.setItem('FavoriteCoins', JSON.stringify(favoriteCoins));
+      setFavoriteCoinsArray(favoriteCoins);
     } else {
-      return;
+      favoriteCoins.splice(favoriteCoins.indexOf(target), 1);
+      localStorage.setItem('FavoriteCoins', JSON.stringify(favoriteCoins));
+      setFavoriteCoinsArray(favoriteCoins);
     }
   }
+
+  const isFavCoin = (target) => {
+    if (favoriteCoinsArray.includes(target)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <Container>
@@ -147,10 +161,8 @@ export default function Main() {
             currentPrice={coin.market_data.current_price.usd}
             onClick={() => {
               saveFavorite(coin.id);
-              console.log(favoriteCoins.includes(coin.id));
-              console.log(coin.name);
             }}
-            isFavoriteCoin={favoriteCoins.includes(coin.id)}
+            isFavoriteCoin={isFavCoin(coin.id)}
           />
         ))
       )}
